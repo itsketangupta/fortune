@@ -7,7 +7,7 @@
 ## 👥 Organizers & Team
 - **Lead Developer:** Priyanshu Singh ([@priyanshusingh1234](https://github.com/priyanshusingh1234) / `@kpk22128`)
 - **Organizer:** `@Noben_Nobi`
-- **Co-Organizer:** `@itsnotketan`
+- **Co-Organizer:** `@kpk22128`
 
 ---
 

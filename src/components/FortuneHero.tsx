@@ -100,7 +100,7 @@ export default function FortuneHero() {
               <span className="text-[#15803d] font-bold flex items-center gap-1">
                 <Users className="w-3.5 h-3.5" /> Co-Organizer:
               </span>
-              <span className="text-[#181926] font-bold">@itsnotketan</span>
+              <span className="text-[#181926] font-bold">@kpk22128</span>
             </div>
           </div>
 

@@ -226,7 +226,7 @@ export async function POST(request: Request) {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
-            text: `*New Fortune Project Shipped!*\n*Title:* ${finalSubmission.title}\n*Founder:* @${finalSubmission.user_name} (${finalSubmission.user_slack_id || "Slack"})\n*Hackatime Project:* \`${finalSubmission.hackatime_project}\` (${finalSubmission.verified_hours} hrs)\n*GitHub:* <${finalSubmission.repo_url}|${finalSubmission.repo_url}>\n*Demo:* <${finalSubmission.demo_url}|${finalSubmission.demo_url}>\n*AI Usage:* ${finalSubmission.use_of_ai} (${finalSubmission.ai_explanation})\n*Screenshots (${screenshotList.length}):* ${screenshotLinks || "None"}\n_cc @Noben_Nobi @itsnotketan_`,
+            text: `*New Fortune Project Shipped!*\n*Title:* ${finalSubmission.title}\n*Founder:* @${finalSubmission.user_name} (${finalSubmission.user_slack_id || "Slack"})\n*Hackatime Project:* \`${finalSubmission.hackatime_project}\` (${finalSubmission.verified_hours} hrs)\n*GitHub:* <${finalSubmission.repo_url}|${finalSubmission.repo_url}>\n*Demo:* <${finalSubmission.demo_url}|${finalSubmission.demo_url}>\n*AI Usage:* ${finalSubmission.use_of_ai} (${finalSubmission.ai_explanation})\n*Screenshots (${screenshotList.length}):* ${screenshotLinks || "None"}\n_cc @Noben_Nobi @kpk22128_`,
           }),
         });
       } catch (slackErr) {

@@ -272,7 +272,7 @@ export default function RetroComputerHero({ fullscreen = false }: RetroComputerH
               <Crown className="w-3.5 h-3.5" /> Org: @Noben_Nobi
             </span>
             <span className="bg-[#f0fdf4] px-3 py-1 rounded-full border-2 border-[#181926] shadow-[2px_2px_0px_#181926] text-[#15803d] font-bold flex items-center gap-1">
-              <Users className="w-3.5 h-3.5" /> Co-Org: @itsnotketan
+              <Users className="w-3.5 h-3.5" /> Co-Org: @kpk22128
             </span>
           </div>
 

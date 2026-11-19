@@ -28,7 +28,7 @@ export default function FortuneFooter() {
               <span className="text-[#b45309] font-bold">Organizer:</span> @Noben_Nobi
             </div>
             <div>
-              <span className="text-[#15803d] font-bold">Co-Organizer:</span> @itsnotketan
+              <span className="text-[#15803d] font-bold">Co-Organizer:</span> @kpk22128
             </div>
           </div>
           <div className="font-pixel text-[11px] text-[#ec3750] font-bold pt-2">

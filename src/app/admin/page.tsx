@@ -807,7 +807,7 @@ export default function AdminDashboardPage() {
                     <div className="flex items-center justify-between">
                       <label className="font-pixel text-xs font-bold text-[#181926] flex items-center gap-1.5">
                         <Edit3 className="w-3.5 h-3.5 text-[#181926]" />
-                        <span>Organizer Notes (Shared between @Noben_Nobi, @itsnotketan &amp; team):</span>
+                        <span>Organizer Notes (Shared between @Noben_Nobi, @kpk22128 &amp; team):</span>
                       </label>
                       {sub.reviewed_by && (
                         <span className="font-pixel text-[10px] text-gray-500">
