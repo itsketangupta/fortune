@@ -13,7 +13,7 @@ export default function HomeContent() {
   // Preserved 100% exactly as original
   if (isLoggedIn) {
     return (
-      <main className="fixed inset-0 z-50 w-screen h-screen bg-[#0c0d14] overflow-hidden flex flex-col p-1.5 sm:p-2.5 md:p-3.5">
+    <main className="fixed inset-0 z-50 w-screen h-screen bg-white overflow-hidden flex flex-col p-0">
         <RetroComputerHero fullscreen={true} />
       </main>
     );

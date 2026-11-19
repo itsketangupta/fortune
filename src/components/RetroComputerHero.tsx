@@ -452,7 +452,7 @@ export default function RetroComputerHero({ fullscreen = false }: RetroComputerH
       <div className="crt-3d-monitor-chassis p-2.5 sm:p-3 relative flex-1 min-h-0 flex flex-col overflow-hidden">
         
         {/* Top Monitor Bezel Bar */}
-        <div className="flex items-center justify-between pb-1.5 px-2 border-b-2 border-[#181926]/10 mb-1.5 font-pixel text-[11px] text-[#5c503b] shrink-0">
+        <div className="fortune-monitor-header flex items-center justify-between pb-1.5 px-2 border-b-2 border-[#181926]/10 mb-1.5 font-pixel text-[11px] text-[#5c503b] shrink-0">
           <div className="flex items-center gap-2">
             <span className="w-2.5 h-2.5 rounded-full bg-[#181926]/40 inline-block"></span>
             <span className="font-bold tracking-widest hidden sm:inline">FORTUNE CRT WORKSTATION</span>
