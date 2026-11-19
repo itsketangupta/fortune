@@ -79,33 +79,33 @@ export default function SkyLandingPage() {
   };
 
   return (
-    <div className="fortune-site min-h-screen overflow-hidden bg-[#111111] text-[#f5f5f5]">
-      <header className="relative z-20 border-b border-white/10">
+    <div className="fortune-site min-h-screen overflow-hidden bg-white text-[#111111]">
+      <header className="relative z-20 border-b border-[#111111]/15">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-5 py-5 sm:px-8">
           <a href="#" className="flex items-center gap-3">
             <span className="flex h-10 w-10 items-center justify-center border-2 border-[#ef3340] bg-[#ef3340] text-lg font-black text-white shadow-[3px_3px_0_#000000]">
               F
             </span>
-            <span className="text-lg font-bold tracking-tight">
+            <span className="text-lg font-bold tracking-tight text-[#111111]">
               Fortune<span className="text-[#ef3340]">.</span>
             </span>
           </a>
 
-          <nav className="hidden items-center gap-8 text-sm font-medium text-white/65 md:flex">
-            <a href="#why-fortune" className="transition hover:text-white">
+          <nav className="hidden items-center gap-8 text-sm font-medium text-[#111111]/60 md:flex">
+            <a href="#why-fortune" className="transition hover:text-[#ef3340]">
               Why Fortune
             </a>
-            <a href="#curriculum" className="transition hover:text-white">
+            <a href="#curriculum" className="transition hover:text-[#ef3340]">
               What you&apos;ll learn
             </a>
-            <a href="#ship" className="transition hover:text-white">
+            <a href="#ship" className="transition hover:text-[#ef3340]">
               The challenge
             </a>
           </nav>
 
           <button
             onClick={() => signIn("hackclub")}
-            className="hidden items-center gap-2 border border-white/30 px-4 py-2 text-sm font-semibold transition hover:border-[#ef3340] hover:bg-white/10 sm:flex"
+            className="hidden items-center gap-2 border border-[#111111]/30 px-4 py-2 text-sm font-semibold transition hover:border-[#ef3340] hover:bg-[#ef3340]/10 sm:flex"
           >
             <LogIn className="h-4 w-4" />
             Sign in
@@ -116,7 +116,7 @@ export default function SkyLandingPage() {
       <main>
         <section className="relative isolate">
           <div className="pointer-events-none absolute -left-32 top-20 -z-10 h-96 w-96 bg-[#ef3340]/10 blur-[120px]" />
-          <div className="pointer-events-none absolute right-0 top-0 -z-10 h-[520px] w-[520px] bg-[#bdbdbd]/10 blur-[130px]" />
+          <div className="pointer-events-none absolute right-0 top-0 -z-10 h-[520px] w-[520px] bg-[#bdbdbd]/20 blur-[130px]" />
           <div className="mx-auto grid max-w-7xl items-center gap-14 px-5 pb-24 pt-16 sm:px-8 sm:pt-24 lg:grid-cols-[1.05fr_.95fr] lg:gap-20 lg:pb-32">
             <div>
               <div className="mb-7 inline-flex items-center gap-2 border border-[#ef3340]/60 bg-[#ef3340]/10 px-3 py-1.5 text-xs font-bold uppercase tracking-[0.18em] text-[#ef3340]">
@@ -127,7 +127,7 @@ export default function SkyLandingPage() {
                 Your idea could be
                 <span className="block text-[#ef3340]">a real business.</span>
               </h1>
-              <p className="mt-7 max-w-xl text-lg leading-8 text-white/65 sm:text-xl">
+              <p className="mt-7 max-w-xl text-lg leading-8 text-[#111111]/65 sm:text-xl">
                 Fortune helps you go from &quot;what if?&quot; to shipped product.
                 Learn the business, build the website, and get ready for your
                 first real users.
@@ -142,7 +142,7 @@ export default function SkyLandingPage() {
                 </button>
                 <a
                   href="#curriculum"
-                  className="inline-flex items-center justify-center gap-2 border border-white/30 px-6 py-3.5 font-semibold text-white/80 transition hover:border-[#ef3340] hover:bg-white/10"
+                  className="inline-flex items-center justify-center gap-2 border border-[#111111]/30 px-6 py-3.5 font-semibold text-[#111111]/80 transition hover:border-[#ef3340] hover:bg-[#ef3340]/10"
                 >
                   Explore the program
                   <ChevronRight className="h-4 w-4" />
@@ -173,15 +173,15 @@ export default function SkyLandingPage() {
               <div className="absolute -right-3 -top-5 z-10 border border-[#ef3340] bg-[#ef3340] px-4 py-3 text-sm font-black text-white shadow-[4px_4px_0_#000000] -rotate-3">
                 build something people want ↗
               </div>
-              <div className="border border-white/20 bg-white/[0.07] p-3 shadow-2xl backdrop-blur">
-                <div className="overflow-hidden border border-white/10 bg-[#1d1d1d]">
-                  <div className="flex items-center justify-between border-b border-white/10 px-5 py-4">
+              <div className="border border-[#111111]/20 bg-[#f5f5f5] p-3 shadow-[8px_8px_0_#111111]">
+                <div className="overflow-hidden border border-[#111111] bg-[#111111]">
+                  <div className="flex items-center justify-between border-b border-white/15 px-5 py-4">
                     <div className="flex gap-1.5">
                       <span className="h-2.5 w-2.5 bg-[#ef3340]" />
                       <span className="h-2.5 w-2.5 bg-[#bdbdbd]" />
                       <span className="h-2.5 w-2.5 bg-[#f5f5f5]" />
                     </div>
-                    <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-white/30">
+                    <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-white/40">
                       fortune / founder mode
                     </span>
                   </div>
@@ -191,7 +191,7 @@ export default function SkyLandingPage() {
                         <p className="text-xs font-bold uppercase tracking-[0.2em] text-[#bdbdbd]">
                           Your next move
                         </p>
-                        <h2 className="mt-2 text-3xl font-black tracking-tight">
+                        <h2 className="mt-2 text-3xl font-black tracking-tight text-white">
                           Ship the useful thing.
                         </h2>
                       </div>
@@ -204,7 +204,7 @@ export default function SkyLandingPage() {
                         (item, index) => (
                           <div
                             key={item}
-                            className="flex items-center gap-3 border border-white/10 bg-white/[0.04] p-3"
+                            className="flex items-center gap-3 border border-white/15 bg-white/[0.04] p-3"
                           >
                             <span
                               className={`flex h-7 w-7 items-center justify-center border ${
@@ -261,7 +261,7 @@ export default function SkyLandingPage() {
           </div>
         </section>
 
-        <section id="curriculum" className="mx-auto max-w-7xl px-5 py-24 sm:px-8 sm:py-32">
+        <section id="curriculum" className="mx-auto max-w-7xl bg-white px-5 py-24 text-[#111111] sm:px-8 sm:py-32">
           <div className="max-w-2xl">
             <p className="text-sm font-bold uppercase tracking-[0.2em] text-[#ef3340]">
               More than a coding project
@@ -269,7 +269,7 @@ export default function SkyLandingPage() {
             <h2 className="mt-4 text-4xl font-black tracking-[-0.04em] sm:text-6xl">
               Learn the parts nobody teaches you in class.
             </h2>
-            <p className="mt-6 text-lg leading-8 text-white/55">
+            <p className="mt-6 text-lg leading-8 text-[#111111]/60">
               Great ideas are only the beginning. Our business learning sessions
               give you the tools to make decisions, find users, and keep building.
             </p>
@@ -278,17 +278,17 @@ export default function SkyLandingPage() {
             {curriculum.map(({ number, icon: Icon, title, description, color }) => (
               <article
                 key={number}
-                className="group border border-white/10 bg-white/[0.045] p-6 transition hover:-translate-y-1 hover:border-[#ef3340] hover:bg-white/[0.08] sm:p-8"
+                className="group border border-[#111111]/15 bg-[#f5f5f5] p-6 transition hover:-translate-y-1 hover:border-[#ef3340] hover:bg-[#eeeeee] sm:p-8"
               >
                 <div className="flex items-start justify-between">
-                  <span className={`flex h-12 w-12 items-center justify-center ${color} text-[#111111]`}>
+                  <span className={`flex h-12 w-12 items-center justify-center border border-[#111111] ${color} text-[#111111]`}>
                     <Icon className="h-5 w-5" />
                   </span>
-                  <span className="font-mono text-sm text-white/30">{number}</span>
+                  <span className="font-mono text-sm text-[#111111]/40">{number}</span>
                 </div>
                 <h3 className="mt-9 text-2xl font-black">{title}</h3>
-                <p className="mt-3 max-w-md leading-7 text-white/55">{description}</p>
-                <div className="mt-7 flex items-center gap-2 text-sm font-bold text-white/40 transition group-hover:text-[#ef3340]">
+                <p className="mt-3 max-w-md leading-7 text-[#111111]/60">{description}</p>
+                <div className="mt-7 flex items-center gap-2 text-sm font-bold text-[#111111]/45 transition group-hover:text-[#ef3340]">
                   Learn in live sessions + recordings
                   <ChevronRight className="h-4 w-4" />
                 </div>
