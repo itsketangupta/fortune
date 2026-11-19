@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import { isUserAdmin } from "@/lib/admin";
-import { supabase } from "@/lib/supabase";
+import { isSupabaseConfigured, supabase } from "@/lib/supabase";
 import fs from "fs";
 import path from "path";
 
@@ -148,12 +148,18 @@ export async function PATCH(request: Request) {
       if (reviewer) updatePayload.reviewed_by = reviewer;
       if (typeof adminNote === "string") updatePayload.admin_notes = adminNote;
 
-      await supabase
+      const { error } = await supabase
         .from("fortune_submissions")
         .update(updatePayload)
         .eq("id", id);
+      if (error && isSupabaseConfigured) {
+        return NextResponse.json({ error: "Could not update the submission in Supabase." }, { status: 502 });
+      }
     } catch (supaErr) {
       console.warn("Supabase update notice:", supaErr);
+      if (isSupabaseConfigured) {
+        return NextResponse.json({ error: "Could not update the submission in Supabase." }, { status: 502 });
+      }
     }
 
     // 2. Update in local data/submissions.json

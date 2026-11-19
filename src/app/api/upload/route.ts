@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
-import { supabase } from "@/lib/supabase";
+import { isSupabaseConfigured, supabase } from "@/lib/supabase";
 import fs from "fs";
 import path from "path";
 
@@ -67,7 +67,14 @@ export async function POST(request: Request) {
       console.warn("Supabase bucket upload attempt failed, falling back to local storage:", supaErr);
     }
 
-    // 2. Fallback: Save to public/uploads directory for seamless local and production dev
+    if (isSupabaseConfigured) {
+      return NextResponse.json(
+        { error: "Cloud upload failed. Check the Supabase bucket and server credentials." },
+        { status: 502 },
+      );
+    }
+
+    // 2. Fallback: Save to public/uploads for local development only.
     const uploadsDir = path.join(process.cwd(), "public", "uploads");
     if (!fs.existsSync(uploadsDir)) {
       fs.mkdirSync(uploadsDir, { recursive: true });

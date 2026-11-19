@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import { isUserAdmin } from "@/lib/admin";
-import { supabase } from "@/lib/supabase";
+import { isSupabaseConfigured, supabase } from "@/lib/supabase";
 import fs from "fs";
 import path from "path";
 import crypto from "crypto";
@@ -221,6 +221,13 @@ export async function POST(request: Request) {
       console.warn("Supabase connection exception:", dbErr);
     }
 
+    if (isSupabaseConfigured && !supabaseSaved) {
+      return NextResponse.json(
+        { error: "Could not save your submission to the database. Please try again." },
+        { status: 502 },
+      );
+    }
+
     const finalSubmission = savedRow
       ? {
           ...savedRow,
@@ -284,6 +291,12 @@ export async function POST(request: Request) {
 
 export async function DELETE(request: Request) {
   try {
+    const session = await getServerSession(authOptions);
+    if (!session?.user) {
+      return NextResponse.json({ error: "Authentication required." }, { status: 401 });
+    }
+
+    const admin = isUserAdmin(session.user);
     const { searchParams } = new URL(request.url);
     const id = searchParams.get("id");
 
@@ -293,16 +306,18 @@ export async function DELETE(request: Request) {
 
     let screenshotsToDelete: string[] = [];
     let existingStatus: string | null = null;
+    let existingSubmission: any = null;
 
     // 1. Fetch submission record to get status and screenshot list
     try {
       const { data } = await supabase
         .from("fortune_submissions")
-        .select("screenshots, status")
+        .select("screenshots, status, user_slack_id, user_email")
         .eq("id", id)
         .single();
 
       if (data) {
+        existingSubmission = data;
         existingStatus = data.status;
         if (data.screenshots) {
           screenshotsToDelete = Array.isArray(data.screenshots)
@@ -324,6 +339,7 @@ export async function DELETE(request: Request) {
         const list = JSON.parse(raw || "[]");
         const found = list.find((item: any) => item.id === id);
         if (found) {
+          existingSubmission = existingSubmission || found;
           if (!existingStatus) existingStatus = found.status;
           if (found?.screenshots && screenshotsToDelete.length === 0) {
             screenshotsToDelete = Array.isArray(found.screenshots)
@@ -336,6 +352,22 @@ export async function DELETE(request: Request) {
       }
     } catch (e) {
       console.warn("Local storage fetch for delete notice:", e);
+    }
+
+    if (!existingSubmission) {
+      return NextResponse.json({ error: "Submission not found." }, { status: 404 });
+    }
+
+    const sessionUser = session.user as typeof session.user & {
+      slack_id?: string;
+      id?: string;
+    };
+    const ownerMatches =
+      (sessionUser.slack_id || sessionUser.id || "") === (existingSubmission.user_slack_id || "") ||
+      Boolean(sessionUser.email && existingSubmission.user_email && sessionUser.email === existingSubmission.user_email);
+
+    if (!admin && !ownerMatches) {
+      return NextResponse.json({ error: "You can only delete your own submission." }, { status: 403 });
     }
 
     // RULE: Approved submissions cannot be deleted
@@ -380,10 +412,16 @@ export async function DELETE(request: Request) {
 
     // 3. Delete from Supabase database
     try {
-      await supabase.from("fortune_submissions").delete().eq("id", id);
+      const { error } = await supabase.from("fortune_submissions").delete().eq("id", id);
+      if (error && isSupabaseConfigured) {
+        return NextResponse.json({ error: "Could not delete the submission from Supabase." }, { status: 502 });
+      }
       console.log("Deleted submission row from Supabase:", id);
     } catch (dbErr) {
       console.warn("Supabase database delete notice:", dbErr);
+      if (isSupabaseConfigured) {
+        return NextResponse.json({ error: "Could not delete the submission from Supabase." }, { status: 502 });
+      }
     }
 
     // 4. Delete from local data/submissions.json

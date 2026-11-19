@@ -127,7 +127,7 @@ export default function AdminDashboardPage() {
 
     if (isAuthorizedAdmin) {
       setIsUnlocked(true);
-    } else if (storedPass === "fortune_admin_2026") {
+    } else if (storedPass) {
       setIsUnlocked(true);
       setPasskey(storedPass);
     }
@@ -168,14 +168,15 @@ export default function AdminDashboardPage() {
   const handleUnlockWithPasskey = (e: React.FormEvent) => {
     e.preventDefault();
     setPasskeyError("");
-    if (passkey.trim() === "fortune_admin_2026") {
-      setIsUnlocked(true);
-      if (typeof window !== "undefined") {
-        sessionStorage.setItem("fortune_admin_pass", passkey.trim());
-      }
-    } else {
-      setPasskeyError("Invalid Admin Passkey. Hint: default passkey is 'fortune_admin_2026'");
+    if (!passkey.trim()) {
+      setPasskeyError("Enter the admin passkey configured in Vercel.");
+      return;
     }
+
+    if (typeof window !== "undefined") {
+      sessionStorage.setItem("fortune_admin_pass", passkey.trim());
+    }
+    setIsUnlocked(true);
   };
 
   const openReasonModal = (submission: Submission, targetStatus: "rejected" | "changes_requested") => {
