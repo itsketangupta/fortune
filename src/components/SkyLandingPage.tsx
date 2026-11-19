@@ -1,445 +1,382 @@
 "use client";
 
-import React, { useState } from "react";
+import { useState } from "react";
 import confetti from "canvas-confetti";
 import { signIn } from "next-auth/react";
-import { ArrowRight, Check, LogIn, Crown, Users, Wrench } from "lucide-react";
+import {
+  ArrowUpRight,
+  Check,
+  ChevronRight,
+  Lightbulb,
+  LineChart,
+  LogIn,
+  Rocket,
+  Sparkles,
+  Users,
+  Video,
+  WalletCards,
+} from "lucide-react";
+
+const curriculum = [
+  {
+    number: "01",
+    icon: Lightbulb,
+    title: "Shape the idea",
+    description:
+      "Turn a rough idea into a clear business plan with a real audience, a real problem, and a reason to exist.",
+    color: "bg-[#f8d66d]",
+  },
+  {
+    number: "02",
+    icon: Rocket,
+    title: "Build the product",
+    description:
+      "Learn how to ship useful software, not just a pretty demo. Make something people can actually use.",
+    color: "bg-[#ff8066]",
+  },
+  {
+    number: "03",
+    icon: LineChart,
+    title: "Find your first users",
+    description:
+      "Explore growth, community, feedback loops, and the practical steps behind getting your product noticed.",
+    color: "bg-[#9ee6c5]",
+  },
+  {
+    number: "04",
+    icon: WalletCards,
+    title: "Think bigger",
+    description:
+      "Understand funding, sustainability, and how to keep improving when your first users show up.",
+    color: "bg-[#c6b5f5]",
+  },
+];
+
+const submissionItems = [
+  "A working website for your business idea",
+  "A clear explanation of the problem and your audience",
+  "A GitHub repository with your source code",
+  "A fast, accessible, responsive experience",
+];
 
 export default function SkyLandingPage() {
-  const [email, setEmail] = useState("");
-  const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
-  const [message, setMessage] = useState("");
+  const [isJoining, setIsJoining] = useState(false);
 
-  // Fun, rotating startup fortunes that stream out of the cookie
-  const fortunes = [
-    "★ HACK CLUB YSWS • WE FUND YOUR CODE ★",
-    "★ 32 USERS ARE WAITING • SHIP IT! ★",
-    "★ STOP LETTING CODE DIE IN GITHUB GRAVEYARDS ★",
-    "★ 100% FREE FOR TEENS • GET SEED FUNDED ★",
-    "★ BUILD SOFTWARE PEOPLE WANT • WE FUND IT ★",
-    "★ FROM ZERO TO FIRST PAYING CUSTOMER ★",
-    "★ $100+ SEED MICRO-GRANT VIA HCB ★",
-    "★ CODE WHATEVER YOU WANT • SHIP WITH HACK CLUB ★",
-  ];
-
-  const [fortuneIndex, setFortuneIndex] = useState(0);
-  const [isCookieWiggling, setIsCookieWiggling] = useState(false);
-
-  // Crack the cookie to get a new fortune
-  const crackFortune = () => {
-    setIsCookieWiggling(true);
-    setFortuneIndex((prev) => (prev + 1) % fortunes.length);
-
+  const handleRsvp = () => {
+    setIsJoining(true);
     confetti({
-      particleCount: 50,
-      spread: 60,
-      origin: { x: 0.25, y: 0.2 },
-      colors: ["#f59e0b", "#fbbf24", "#ec3750", "#ffffff"],
-    });
-
-    setTimeout(() => {
-      setIsCookieWiggling(false);
-    }, 350);
-  };
-
-  const handleRsvp = (e: React.FormEvent) => {
-    e.preventDefault();
-
-    // Trigger celebration confetti
-    confetti({
-      particleCount: 80,
+      particleCount: 90,
       spread: 70,
-      origin: { y: 0.65 },
-      colors: ["#f59e0b", "#ec3750", "#10b981", "#ffffff"],
+      origin: { y: 0.6 },
+      colors: ["#f8d66d", "#ff8066", "#9ee6c5", "#ffffff"],
     });
-
-    const rsvpUrl = email.trim() && email.includes("@")
-      ? `https://rsvp.hackclub.community/fortune-ysws?email=${encodeURIComponent(email.trim())}`
-      : "https://rsvp.hackclub.community/fortune-ysws";
-
-    // Open official Hack Club RSVP portal
-    window.open(rsvpUrl, "_blank", "noopener,noreferrer");
-
-    setStatus("success");
-    setMessage("🎉 Opening official Hack Club RSVP portal... Claim your spot!");
+    window.open(
+      "https://rsvp.hackclub.community/fortune-ysws",
+      "_blank",
+      "noopener,noreferrer",
+    );
+    window.setTimeout(() => setIsJoining(false), 1200);
   };
 
   return (
-    <section className="relative min-h-screen w-full overflow-hidden flex flex-col justify-between items-center text-center px-4 py-8 sm:py-12 select-none fortune-sunset-gradient">
-      
-      {/* Ambient Stardust & Twinkling Sparkles */}
-      <div className="absolute inset-0 pointer-events-none overflow-hidden z-0">
-        
-        {/* Floating Twinkle Stars */}
-        <div className="absolute top-[8%] left-[18%] twinkle-star text-[#fef08a] opacity-80 text-xl font-bold">✦</div>
-        <div className="absolute top-[14%] right-[24%] twinkle-star text-[#fef08a] opacity-70 text-sm font-bold" style={{ animationDelay: "1s" }}>✧</div>
-        <div className="absolute top-[28%] left-[8%] twinkle-star text-[#fde047] opacity-60 text-base font-bold" style={{ animationDelay: "1.5s" }}>✦</div>
-        <div className="absolute top-[38%] right-[12%] twinkle-star text-[#fef08a] opacity-75 text-lg font-bold" style={{ animationDelay: "2s" }}>✧</div>
-        <div className="absolute top-[6%] right-[8%] twinkle-star text-[#ffffff] opacity-90 text-2xl font-bold" style={{ animationDelay: "0.5s" }}>✦</div>
+    <div className="fortune-site min-h-screen overflow-hidden bg-[#10131d] text-[#f9f7f2]">
+      <header className="relative z-20 border-b border-white/10">
+        <div className="mx-auto flex max-w-7xl items-center justify-between px-5 py-5 sm:px-8">
+          <a href="#" className="flex items-center gap-3">
+            <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#f8d66d] text-lg font-black text-[#10131d] shadow-[3px_3px_0_#ff8066]">
+              F
+            </span>
+            <span className="text-lg font-bold tracking-tight">
+              Fortune<span className="text-[#ff8066]">.</span>
+            </span>
+          </a>
 
-        {/* Clean Geometric Coin 1: '$' Coin (Top Right) */}
-        <div className="absolute top-[12%] right-[14%] coin-float-1 hidden sm:block opacity-95">
-          <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-            {/* Hard, solid SVG drop shadow with no blur */}
-            <circle cx="25" cy="25" r="20" fill="#181926" />
-            {/* Outer gold rim with dark brutalist border */}
-            <circle cx="22" cy="22" r="20" fill="#f59e0b" stroke="#181926" strokeWidth="2.5" />
-            {/* Inner gold coin face */}
-            <circle cx="22" cy="22" r="15" fill="#fbbf24" stroke="#d97706" strokeWidth="1.5" />
-            {/* Perfectly centered text using dominant-baseline="central" */}
-            <text
-              x="22"
-              y="22"
-              textAnchor="middle"
-              dominantBaseline="central"
-              fill="#181926"
-              fontSize="18"
-              fontWeight="900"
-              fontFamily="Space Grotesk, sans-serif"
-            >
-              $
-            </text>
-          </svg>
+          <nav className="hidden items-center gap-8 text-sm font-medium text-white/65 md:flex">
+            <a href="#why-fortune" className="transition hover:text-white">
+              Why Fortune
+            </a>
+            <a href="#curriculum" className="transition hover:text-white">
+              What you&apos;ll learn
+            </a>
+            <a href="#ship" className="transition hover:text-white">
+              The challenge
+            </a>
+          </nav>
+
+          <button
+            onClick={() => signIn("hackclub")}
+            className="hidden items-center gap-2 rounded-full border border-white/20 px-4 py-2 text-sm font-semibold transition hover:border-white/50 hover:bg-white/10 sm:flex"
+          >
+            <LogIn className="h-4 w-4" />
+            Sign in
+          </button>
         </div>
+      </header>
 
-        {/* Clean Geometric Coin 2: '★' Coin (Middle Left) */}
-        <div className="absolute top-[44%] left-[6%] coin-float-2 hidden sm:block opacity-90">
-          <svg width="42" height="42" viewBox="0 0 42 42" fill="none" xmlns="http://www.w3.org/2000/svg">
-            {/* Hard, solid SVG drop shadow with no blur */}
-            <circle cx="22" cy="22" r="17" fill="#181926" />
-            {/* Outer gold rim with dark border */}
-            <circle cx="19" cy="19" r="17" fill="#f59e0b" stroke="#181926" strokeWidth="2.5" />
-            {/* Inner gold face */}
-            <circle cx="19" cy="19" r="13" fill="#fbbf24" stroke="#d97706" strokeWidth="1.5" />
-            {/* Perfectly centered star */}
-            <text
-              x="19"
-              y="19"
-              textAnchor="middle"
-              dominantBaseline="central"
-              fill="#181926"
-              fontSize="14"
-              fontWeight="900"
-            >
-              ★
-            </text>
-          </svg>
-        </div>
-
-        {/* Clean Geometric Coin 3: 'HC' Coin (Lower Right) */}
-        <div className="absolute bottom-[18%] right-[8%] coin-float-1 hidden md:block opacity-90">
-          <svg width="44" height="44" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
-            {/* Hard, solid SVG drop shadow with no blur */}
-            <circle cx="23" cy="23" r="18" fill="#181926" />
-            {/* Outer gold rim with dark border */}
-            <circle cx="20" cy="20" r="18" fill="#f59e0b" stroke="#181926" strokeWidth="2.5" />
-            {/* Inner gold face */}
-            <circle cx="20" cy="20" r="14" fill="#fbbf24" stroke="#d97706" strokeWidth="1.5" />
-            {/* Perfectly centered text using dominant-baseline="central" */}
-            <text
-              x="20"
-              y="20"
-              textAnchor="middle"
-              dominantBaseline="central"
-              fill="#181926"
-              fontSize="12"
-              fontWeight="900"
-              fontFamily="Space Grotesk, sans-serif"
-            >
-              HC
-            </text>
-          </svg>
-        </div>
-
-      </div>
-
-      {/* TOP BAR: Symmetrical Winged Fortune Cookie Mascot with Centered Streamer & Slack Sign-In */}
-      <div className="relative w-full max-w-6xl mx-auto flex flex-wrap sm:flex-nowrap items-center justify-between gap-3 z-20 pt-2 px-2 sm:px-4">
-        
-        {/* SYMMETRICAL MASCOT + CENTERED BANNER */}
-        <div
-          onClick={crackFortune}
-          className={`cookie-float group cursor-pointer inline-flex items-center transition-transform max-w-full ${
-            isCookieWiggling ? "scale-105 rotate-2" : ""
-          }`}
-          title="Click the Fortune Cookie to crack a new fortune!"
-        >
-          <div className="relative flex items-center max-w-full">
-            
-            {/* Symmetrical Winged Fortune Cookie SVG (160x110) */}
-            <svg
-              width="110"
-              height="80"
-              viewBox="0 0 160 110"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-              className="shrink-0 transition-transform group-hover:scale-105"
-            >
-              <defs>
-                {/* Reusable Wing Definition for Exact Geometric Mirroring */}
-                <g id="cookie-wing-shape">
-                  <path
-                    d="M 48 52 C 34 44, 16 38, 8 22 C 6 12, 18 14, 26 24 C 22 14, 30 10, 38 18 C 34 26, 42 42, 48 52 Z"
-                    fill="#ffffff"
-                    stroke="#181926"
-                    strokeWidth="2.5"
-                    strokeLinejoin="round"
-                  />
-                  <path
-                    d="M 26 24 C 32 32, 40 42, 44 48"
-                    stroke="#cbd5e1"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                  />
-                </g>
-              </defs>
-
-              {/* Left Wing (flapping around attachment point 48px, 52px) */}
-              <g className="fortune-wing-left origin-[48px_52px]">
-                <use href="#cookie-wing-shape" />
-              </g>
-
-              {/* Right Wing (Exact Mathematical Mirror via transform across center x=80) */}
-              <g className="fortune-wing-right origin-[112px_52px]">
-                <g transform="translate(160, 0) scale(-1, 1)">
-                  <use href="#cookie-wing-shape" />
-                </g>
-              </g>
-
-              {/* Hard 0px Blur Shadow for Cookie Body */}
-              <path
-                d="M 40 76 C 28 50, 48 30, 80 40 C 112 30, 132 50, 120 76 C 108 94, 92 84, 80 64 C 68 84, 52 94, 40 76 Z"
-                fill="#181926"
-                transform="translate(3, 4)"
-              />
-
-              {/* Back Shell / Depth (Symmetrical) */}
-              <path
-                d="M 40 76 C 28 50, 48 30, 80 40 C 112 30, 132 50, 120 76 C 108 94, 92 84, 80 64 C 68 84, 52 94, 40 76 Z"
-                fill="#d97706"
-                stroke="#181926"
-                strokeWidth="2.5"
-              />
-
-              {/* Inner Crease Shadow (Symmetrical) */}
-              <path
-                d="M 52 75 C 65 84, 74 76, 80 64 C 86 76, 95 84, 108 75 C 98 86, 62 86, 52 75 Z"
-                fill="#92400e"
-              />
-
-              {/* Left Front Lobe */}
-              <path
-                d="M 38 72 C 28 50, 46 32, 74 40 C 80 50, 72 70, 52 76 C 45 78, 40 76, 38 72 Z"
-                fill="#fbbf24"
-                stroke="#181926"
-                strokeWidth="2.5"
-              />
-
-              {/* Right Front Lobe (Exact Symmetrical Mirror: x' = 160 - x) */}
-              <path
-                d="M 122 72 C 132 50, 114 32, 86 40 C 80 50, 88 70, 108 76 C 115 78, 120 76, 122 72 Z"
-                fill="#fbbf24"
-                stroke="#181926"
-                strokeWidth="2.5"
-              />
-
-              {/* Baked Highlights (Symmetrical) */}
-              <path
-                d="M 42 48 C 48 38, 62 36, 70 40"
-                stroke="#fef3c7"
-                strokeWidth="3"
-                strokeLinecap="round"
-              />
-              <path
-                d="M 118 48 C 112 38, 98 36, 90 40"
-                stroke="#fef3c7"
-                strokeWidth="3"
-                strokeLinecap="round"
-              />
-
-              {/* Symmetrical Happy Eyes */}
-              <path d="M 54 55 Q 58 51 62 55" stroke="#181926" strokeWidth="2.5" strokeLinecap="round" fill="none" />
-              <path d="M 98 55 Q 102 51 106 55" stroke="#181926" strokeWidth="2.5" strokeLinecap="round" fill="none" />
-
-              {/* Symmetrical Blushing Cheeks */}
-              <circle cx="52" cy="60" r="3.5" fill="#f43f5e" />
-              <circle cx="108" cy="60" r="3.5" fill="#f43f5e" />
-            </svg>
-
-            {/* Trailing Fortune Paper Ribbon (Centering + No Edge Clipping) */}
-            <div className="fortune-streamer-flutter origin-left -ml-2 flex items-center min-w-0 max-w-[calc(100vw-150px)] sm:max-w-md">
-              <div className="relative bg-white text-[#ec3750] font-bold px-3 sm:px-4 py-1.5 rounded-sm border-2 border-[#181926] shadow-[3px_3px_0px_#181926] flex items-center justify-center w-full">
-                {/* Traditional Fortune Cookie Dashed Border Frame */}
-                <div className="border-t border-b border-dashed border-[#ec3750]/60 py-0.5 px-1.5 flex items-center justify-center gap-2 text-center w-full">
-                  <span className="font-mono font-bold tracking-wider text-[10px] sm:text-xs uppercase text-center leading-tight truncate sm:whitespace-nowrap">
-                    {fortunes[fortuneIndex]}
-                  </span>
-                  <span className="text-[9px] bg-[#fef2f2] text-[#ec3750] px-1 py-0.5 rounded font-mono font-bold border border-[#ec3750]/30 hidden lg:inline shrink-0">
-                    click to crack
-                  </span>
-                </div>
+      <main>
+        <section className="relative isolate">
+          <div className="pointer-events-none absolute -left-32 top-20 -z-10 h-96 w-96 rounded-full bg-[#ff8066]/20 blur-[120px]" />
+          <div className="pointer-events-none absolute right-0 top-0 -z-10 h-[520px] w-[520px] rounded-full bg-[#6c5ce7]/20 blur-[130px]" />
+          <div className="mx-auto grid max-w-7xl items-center gap-14 px-5 pb-24 pt-16 sm:px-8 sm:pt-24 lg:grid-cols-[1.05fr_.95fr] lg:gap-20 lg:pb-32">
+            <div>
+              <div className="mb-7 inline-flex items-center gap-2 rounded-full border border-[#f8d66d]/30 bg-[#f8d66d]/10 px-3 py-1.5 text-xs font-bold uppercase tracking-[0.18em] text-[#f8d66d]">
+                <Sparkles className="h-3.5 w-3.5" />
+                Hack Club YSWS for teen founders
+              </div>
+              <h1 className="max-w-3xl text-5xl font-black leading-[0.98] tracking-[-0.06em] sm:text-7xl lg:text-[5.6rem]">
+                Your idea could be
+                <span className="block text-[#ff8066]">a real business.</span>
+              </h1>
+              <p className="mt-7 max-w-xl text-lg leading-8 text-white/65 sm:text-xl">
+                Fortune helps you go from &quot;what if?&quot; to shipped product.
+                Learn the business, build the website, and get ready for your
+                first real users.
+              </p>
+              <div className="mt-9 flex flex-col gap-3 sm:flex-row">
+                <button
+                  onClick={handleRsvp}
+                  className="group inline-flex items-center justify-center gap-2 rounded-xl bg-[#f8d66d] px-6 py-3.5 font-bold text-[#10131d] shadow-[4px_4px_0_#ff8066] transition hover:-translate-y-1 hover:shadow-[6px_6px_0_#ff8066]"
+                >
+                  {isJoining ? "Opening RSVP..." : "RSVP for Fortune"}
+                  <ArrowUpRight className="h-5 w-5 transition group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                </button>
+                <a
+                  href="#curriculum"
+                  className="inline-flex items-center justify-center gap-2 rounded-xl border border-white/20 px-6 py-3.5 font-semibold text-white/80 transition hover:border-white/50 hover:bg-white/10"
+                >
+                  Explore the program
+                  <ChevronRight className="h-4 w-4" />
+                </a>
+              </div>
+              <div className="mt-8 flex items-center gap-3 text-sm text-white/45">
+                <span className="flex -space-x-2">
+                  {["P", "A", "K"].map((letter, index) => (
+                    <span
+                      key={letter}
+                      className={`flex h-8 w-8 items-center justify-center rounded-full border-2 border-[#10131d] text-xs font-bold text-[#10131d] ${
+                        index === 0
+                          ? "bg-[#9ee6c5]"
+                          : index === 1
+                            ? "bg-[#c6b5f5]"
+                            : "bg-[#f8d66d]"
+                      }`}
+                    >
+                      {letter}
+                    </span>
+                  ))}
+                </span>
+                Built for curious people who ship
               </div>
             </div>
 
-          </div>
-        </div>
-
-        {/* Top Right Quick Slack Sign-In */}
-        <button
-          onClick={() => signIn("hackclub")}
-          className="bg-white hover:bg-[#fffdf5] text-[#181926] px-4 py-2 rounded-xl font-bold font-pixel text-xs sm:text-sm border-2 border-[#181926] shadow-[3px_3px_0px_#181926] hover:-translate-y-0.5 active:translate-y-0.5 transition-all flex items-center gap-1.5 shrink-0"
-        >
-          <LogIn className="w-3.5 h-3.5 text-[#ec3750]" />
-          <span>Sign In</span>
-        </button>
-
-      </div>
-
-      {/* CENTER STAGE: Crisp 3D Golden Typography + Subtitle with Vector Zigzag + Clean Rounded Card */}
-      <div className="relative z-10 max-w-2xl w-full mx-auto my-auto py-8 sm:py-12 flex flex-col items-center">
-        
-        {/* Crisp 3D Main Title "Fortune" with Hard-Edged Layered 3D Shadow (0px blur) */}
-        <h1 className="fortune-3d-gold-title text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-black text-white tracking-tight leading-none mb-3 sm:mb-4 select-none">
-          Fortune
-        </h1>
-
-        {/* Primary Subtitle with Clean Vector Zigzag Underline on 'We fund it.' */}
-        <h2 className="text-xl sm:text-2xl md:text-3xl font-extrabold text-white tracking-tight mb-3 select-none">
-          Build whatever you want.{" "}
-          <span className="relative inline-block text-[#fef08a] font-black">
-            <span>We fund it.</span>
-            {/* Custom Inline SVG Zigzag Underline */}
-            <svg
-              className="absolute left-0 -bottom-2 w-full h-2.5 overflow-visible pointer-events-none"
-              viewBox="0 0 120 10"
-              fill="none"
-              preserveAspectRatio="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M 1 6 L 10 2 L 19 6 L 28 2 L 37 6 L 46 2 L 55 6 L 64 2 L 73 6 L 82 2 L 91 6 L 100 2 L 109 6 L 119 2"
-                stroke="#fef08a"
-                strokeWidth="3"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
-          </span>
-        </h2>
-
-        {/* Tagline: Hack Club You Ship, We Ship for teens */}
-        <p className="text-white/95 text-xs sm:text-sm md:text-base font-semibold mb-8 sm:mb-10 drop-shadow-[0_1px_2px_rgba(0,0,0,0.3)]">
-          A Hack Club You Ship, We Ship program for teens 13–18.
-        </p>
-
-        {/* Clean, Rounded Card with Hard Brutalist UI Shadow */}
-        <div className="bg-white rounded-3xl p-6 sm:p-8 max-w-md sm:max-w-lg w-full border-3 border-[#181926] shadow-[6px_6px_0px_#181926] mx-auto text-left relative transition-all">
-          
-          <label 
-            htmlFor="email-input"
-            className="block text-center text-[11px] sm:text-xs font-bold tracking-widest text-slate-500 uppercase mb-3.5 font-pixel"
-          >
-            RSVP TO HEAR WHEN IT OPENS
-          </label>
-
-          <form onSubmit={handleRsvp} className="flex flex-col sm:flex-row gap-2.5">
-            <input
-              id="email-input"
-              type="email"
-              value={email}
-              onChange={(e) => {
-                setEmail(e.target.value);
-                if (status === "error") setStatus("idle");
-              }}
-              placeholder="you@example.com"
-              className="flex-1 px-4 py-3 rounded-xl border-2 border-[#181926] text-slate-800 placeholder-slate-400 text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-[#f59e0b] transition-all font-sans"
-            />
-            <button
-              type="submit"
-              className="bg-[#ec3750] hover:bg-[#d9223c] active:translate-y-0.5 text-white font-bold px-7 py-3 rounded-xl border-2 border-[#181926] shadow-[3px_3px_0px_#181926] transition-all font-pixel text-xs sm:text-sm cursor-pointer shrink-0"
-            >
-              RSVP →
-            </button>
-          </form>
-
-          {/* Direct RSVP Portal Link */}
-          <div className="mt-2.5 text-center">
-            <a
-              href="https://rsvp.hackclub.community/fortune-ysws"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-[11px] font-pixel text-gray-500 hover:text-[#ec3750] underline inline-flex items-center gap-1 transition-colors"
-            >
-              <span>Or RSVP directly at rsvp.hackclub.community/fortune-ysws</span>
-              <ArrowRight className="w-3 h-3 inline" />
-            </a>
-          </div>
-
-          {/* Status / Feedback Area */}
-          {status === "error" && (
-            <p className="text-[#ec3750] font-bold text-xs sm:text-sm mt-3 text-center font-pixel animate-in fade-in">
-              {message}
-            </p>
-          )}
-
-          {status === "success" && (
-            <div className="bg-[#f0fdf4] border-2 border-[#181926] shadow-[2px_2px_0px_#181926] text-[#166534] text-xs sm:text-sm font-bold rounded-xl p-3 mt-3.5 text-center font-pixel animate-in fade-in flex items-center justify-center gap-1.5">
-              <Check className="w-4 h-4 text-[#16a34a] shrink-0" />
-              <span>{message}</span>
+            <div className="relative mx-auto w-full max-w-[500px]">
+              <div className="absolute -right-3 -top-5 z-10 rounded-2xl border border-[#ff8066]/40 bg-[#ff8066] px-4 py-3 text-sm font-black text-[#10131d] shadow-[4px_4px_0_#f8d66d] -rotate-3">
+                build something people want ↗
+              </div>
+              <div className="rounded-[2rem] border border-white/15 bg-white/[0.07] p-3 shadow-2xl backdrop-blur">
+                <div className="overflow-hidden rounded-[1.4rem] border border-white/10 bg-[#181d2b]">
+                  <div className="flex items-center justify-between border-b border-white/10 px-5 py-4">
+                    <div className="flex gap-1.5">
+                      <span className="h-2.5 w-2.5 rounded-full bg-[#ff8066]" />
+                      <span className="h-2.5 w-2.5 rounded-full bg-[#f8d66d]" />
+                      <span className="h-2.5 w-2.5 rounded-full bg-[#9ee6c5]" />
+                    </div>
+                    <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-white/30">
+                      fortune / founder mode
+                    </span>
+                  </div>
+                  <div className="p-6 sm:p-8">
+                    <div className="mb-10 flex items-start justify-between">
+                      <div>
+                        <p className="text-xs font-bold uppercase tracking-[0.2em] text-[#9ee6c5]">
+                          Your next move
+                        </p>
+                        <h2 className="mt-2 text-3xl font-black tracking-tight">
+                          Ship the useful thing.
+                        </h2>
+                      </div>
+                      <span className="rounded-full bg-[#f8d66d] px-2.5 py-1 text-xs font-black text-[#10131d]">
+                        01
+                      </span>
+                    </div>
+                    <div className="space-y-3">
+                      {["Find the problem", "Build the first version", "Talk to users"].map(
+                        (item, index) => (
+                          <div
+                            key={item}
+                            className="flex items-center gap-3 rounded-xl border border-white/10 bg-white/[0.04] p-3"
+                          >
+                            <span
+                              className={`flex h-7 w-7 items-center justify-center rounded-lg ${
+                                index === 0
+                                  ? "bg-[#f8d66d] text-[#10131d]"
+                                  : "bg-white/10 text-white/50"
+                              }`}
+                            >
+                              {index === 0 ? <Check className="h-4 w-4" /> : index + 1}
+                            </span>
+                            <span className="text-sm font-semibold text-white/80">{item}</span>
+                            {index === 0 && (
+                              <span className="ml-auto text-[10px] font-bold uppercase text-[#9ee6c5]">
+                                done
+                              </span>
+                            )}
+                          </div>
+                        ),
+                      )}
+                    </div>
+                    <div className="mt-8 rounded-xl bg-[#f8d66d] p-4 text-[#10131d]">
+                      <div className="flex items-center gap-2 text-xs font-black uppercase tracking-wider">
+                        <Users className="h-4 w-4" />
+                        Founder note
+                      </div>
+                      <p className="mt-2 text-sm font-semibold leading-5">
+                        You don&apos;t need a perfect plan. You need a first useful step.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className="absolute -bottom-6 -left-8 hidden rounded-2xl border border-white/15 bg-[#9ee6c5] px-4 py-3 text-sm font-black text-[#10131d] shadow-[4px_4px_0_#10131d] rotate-3 sm:block">
+                learn → build → grow
+              </div>
             </div>
-          )}
-
-          {/* Quick Divider & Direct Hack Club Slack Sign-In */}
-          <div className="mt-4 pt-3.5 border-t-2 border-slate-100 flex items-center justify-center text-center">
-            <button
-              onClick={() => signIn("hackclub")}
-              className="text-xs text-slate-500 hover:text-[#ec3750] font-medium transition-colors flex items-center gap-1 group font-pixel"
-            >
-              <span>Already in Hack Club?</span>
-              <span className="font-bold text-[#ec3750] group-hover:underline">
-                Sign in with Slack
-              </span>
-              <ArrowRight className="w-3 h-3 text-[#ec3750] group-hover:translate-x-0.5 transition-transform" />
-            </button>
           </div>
+        </section>
 
-        </div>
+        <section id="why-fortune" className="border-y border-white/10 bg-[#f8d66d] text-[#10131d]">
+          <div className="mx-auto grid max-w-7xl gap-8 px-5 py-10 sm:px-8 md:grid-cols-3 md:items-center md:gap-0">
+            <div className="border-[#10131d]/15 md:border-r md:pr-8">
+              <p className="text-4xl font-black tracking-tight">01</p>
+              <p className="mt-1 font-semibold text-[#10131d]/65">idea to opportunity</p>
+            </div>
+            <div className="border-[#10131d]/15 md:border-r md:px-8">
+              <p className="text-4xl font-black tracking-tight">02</p>
+              <p className="mt-1 font-semibold text-[#10131d]/65">learn the founder basics</p>
+            </div>
+            <div className="md:pl-8">
+              <p className="text-4xl font-black tracking-tight">03</p>
+              <p className="mt-1 font-semibold text-[#10131d]/65">ship a real product</p>
+            </div>
+          </div>
+        </section>
 
-      </div>
+        <section id="curriculum" className="mx-auto max-w-7xl px-5 py-24 sm:px-8 sm:py-32">
+          <div className="max-w-2xl">
+            <p className="text-sm font-bold uppercase tracking-[0.2em] text-[#ff8066]">
+              More than a coding project
+            </p>
+            <h2 className="mt-4 text-4xl font-black tracking-[-0.04em] sm:text-6xl">
+              Learn the parts nobody teaches you in class.
+            </h2>
+            <p className="mt-6 text-lg leading-8 text-white/55">
+              Great ideas are only the beginning. Our business learning sessions
+              give you the tools to make decisions, find users, and keep building.
+            </p>
+          </div>
+          <div className="mt-14 grid gap-4 md:grid-cols-2">
+            {curriculum.map(({ number, icon: Icon, title, description, color }) => (
+              <article
+                key={number}
+                className="group rounded-3xl border border-white/10 bg-white/[0.045] p-6 transition hover:-translate-y-1 hover:border-white/25 hover:bg-white/[0.08] sm:p-8"
+              >
+                <div className="flex items-start justify-between">
+                  <span className={`flex h-12 w-12 items-center justify-center rounded-2xl ${color} text-[#10131d]`}>
+                    <Icon className="h-5 w-5" />
+                  </span>
+                  <span className="font-mono text-sm text-white/30">{number}</span>
+                </div>
+                <h3 className="mt-9 text-2xl font-black">{title}</h3>
+                <p className="mt-3 max-w-md leading-7 text-white/55">{description}</p>
+                <div className="mt-7 flex items-center gap-2 text-sm font-bold text-white/40 transition group-hover:text-[#f8d66d]">
+                  Learn in live sessions + recordings
+                  <ChevronRight className="h-4 w-4" />
+                </div>
+              </article>
+            ))}
+          </div>
+        </section>
 
-      {/* FOOTER: Organizers & Slack Link */}
-      <div className="relative z-10 pb-4 pt-2 text-center space-y-3">
-        {/* Organizer & Team Badges */}
-        <div className="flex flex-wrap items-center justify-center gap-2 font-pixel text-[11px] sm:text-xs">
-          <span className="bg-[#fffbeb] text-[#92400e] px-3 py-1 rounded-full border-2 border-[#181926] shadow-[2px_2px_0px_#181926] font-bold flex items-center gap-1.5 hover:-translate-y-0.5 transition-transform">
-            <Crown className="w-3.5 h-3.5 text-[#f59e0b]" />
-            <span>Organizer: <strong>@Noben_Nobi</strong></span>
-          </span>
-          <span className="bg-[#f0fdf4] text-[#166534] px-3 py-1 rounded-full border-2 border-[#181926] shadow-[2px_2px_0px_#181926] font-bold flex items-center gap-1.5 hover:-translate-y-0.5 transition-transform">
-            <Users className="w-3.5 h-3.5 text-[#10b981]" />
-            <span>Co-Organizer: <strong>@itsnotketan</strong></span>
-          </span>
-          <span className="bg-[#fef2f2] text-[#991b1b] px-3 py-1 rounded-full border-2 border-[#181926] shadow-[2px_2px_0px_#181926] font-bold flex items-center gap-1.5 hover:-translate-y-0.5 transition-transform">
-            <Wrench className="w-3.5 h-3.5 text-[#ec3750]" />
-            <span>Lead Dev: <strong>Priyanshu Singh</strong></span>
-          </span>
-        </div>
+        <section id="ship" className="bg-[#f3eee3] text-[#10131d]">
+          <div className="mx-auto grid max-w-7xl gap-14 px-5 py-24 sm:px-8 sm:py-32 lg:grid-cols-[.9fr_1.1fr] lg:items-center">
+            <div>
+              <p className="text-sm font-bold uppercase tracking-[0.2em] text-[#e25d45]">
+                The Fortune challenge
+              </p>
+              <h2 className="mt-4 text-4xl font-black tracking-[-0.05em] sm:text-6xl">
+                You ship us a business website.
+              </h2>
+              <p className="mt-6 text-lg leading-8 text-[#10131d]/60">
+                Take everything you learn and turn it into a product people can
+                understand, use, and come back to.
+              </p>
+              <button
+                onClick={handleRsvp}
+                className="mt-8 inline-flex items-center gap-2 rounded-xl bg-[#10131d] px-6 py-3.5 font-bold text-white transition hover:bg-[#ff8066] hover:text-[#10131d]"
+              >
+                I&apos;m ready to build
+                <ArrowUpRight className="h-5 w-5" />
+              </button>
+            </div>
+            <div className="rounded-3xl border-2 border-[#10131d] bg-white p-6 shadow-[8px_8px_0_#f8d66d] sm:p-9">
+              <div className="flex items-center justify-between border-b border-[#10131d]/10 pb-5">
+                <div>
+                  <p className="text-xs font-bold uppercase tracking-[0.2em] text-[#e25d45]">
+                    Submission checklist
+                  </p>
+                  <h3 className="mt-2 text-2xl font-black">Make it real.</h3>
+                </div>
+                <span className="rounded-full bg-[#9ee6c5] px-3 py-1 text-xs font-black">4 steps</span>
+              </div>
+              <div className="mt-6 space-y-4">
+                {submissionItems.map((item, index) => (
+                  <div key={item} className="flex items-start gap-4">
+                    <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-[#10131d] text-xs font-black text-[#f8d66d]">
+                      {index + 1}
+                    </span>
+                    <p className="pt-1 font-semibold text-[#10131d]/75">{item}</p>
+                  </div>
+                ))}
+              </div>
+              <div className="mt-8 flex items-center gap-3 rounded-2xl bg-[#f3eee3] p-4 text-sm font-semibold text-[#10131d]/65">
+                <Video className="h-5 w-5 shrink-0 text-[#e25d45]" />
+                Can&apos;t make a live session? Recordings keep you moving.
+              </div>
+            </div>
+          </div>
+        </section>
 
-        {/* Questions Link */}
-        <p className="text-white/85 hover:text-white text-xs sm:text-sm font-medium transition-colors drop-shadow-sm font-pixel">
-          Questions? Ask in{" "}
-          <a
-            href="https://app.slack.com/client/E09V59WQY1E/C0CBJ54GYMQ"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="font-bold underline decoration-white/50 hover:decoration-white transition-colors"
+        <section className="relative overflow-hidden px-5 py-24 text-center sm:px-8 sm:py-32">
+          <div className="pointer-events-none absolute left-1/2 top-1/2 -z-10 h-96 w-96 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#ff8066]/15 blur-[120px]" />
+          <p className="text-sm font-bold uppercase tracking-[0.2em] text-[#f8d66d]">
+            Your next chapter starts here
+          </p>
+          <h2 className="mx-auto mt-5 max-w-3xl text-5xl font-black tracking-[-0.06em] sm:text-7xl">
+            Stop waiting for the perfect idea.
+            <span className="block text-[#ff8066]">Start building.</span>
+          </h2>
+          <p className="mx-auto mt-6 max-w-xl text-lg leading-8 text-white/55">
+            Bring the spark. We&apos;ll help you turn it into something real.
+          </p>
+          <button
+            onClick={handleRsvp}
+            className="mt-9 inline-flex items-center gap-2 rounded-xl bg-[#f8d66d] px-7 py-4 font-black text-[#10131d] shadow-[5px_5px_0_#ff8066] transition hover:-translate-y-1"
           >
-            #fortune
-          </a>{" "}
-          on the Hack Club Slack.
-        </p>
-      </div>
+            RSVP for Fortune
+            <ArrowUpRight className="h-5 w-5" />
+          </button>
+        </section>
+      </main>
 
-    </section>
+      <footer className="border-t border-white/10">
+        <div className="mx-auto flex max-w-7xl flex-col gap-4 px-5 py-8 text-sm text-white/40 sm:flex-row sm:items-center sm:justify-between sm:px-8">
+          <p className="font-semibold text-white/70">Fortune<span className="text-[#ff8066]">.</span></p>
+          <p>Built for teen founders, with Hack Club.</p>
+          <a href="https://hackclub.com" className="transition hover:text-white" target="_blank" rel="noreferrer">
+            hackclub.com <ArrowUpRight className="inline h-3.5 w-3.5" />
+          </a>
+        </div>
+      </footer>
+    </div>
   );
 }
