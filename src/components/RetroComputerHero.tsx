@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { signIn, signOut, useSession } from "next-auth/react";
 import confetti from "canvas-confetti";
@@ -61,6 +61,16 @@ export default function RetroComputerHero({ fullscreen = false }: RetroComputerH
   const [bootStep, setBootStep] = useState(0);
   const [activeWindow, setActiveWindow] = useState<"ship" | "shop" | "chat" | "faq" | "roadmap" | null>(null);
   const [startMenuOpen, setStartMenuOpen] = useState(false);
+  const [windowMinimized, setWindowMinimized] = useState(false);
+  const [windowMaximized, setWindowMaximized] = useState(false);
+  const [windowPosition, setWindowPosition] = useState({ x: 0, y: 0 });
+  const dragState = useRef<{
+    active: boolean;
+    startX: number;
+    startY: number;
+    originX: number;
+    originY: number;
+  }>({ active: false, startX: 0, startY: 0, originX: 0, originY: 0 });
 
   // FAQ search & expanded state
   const [faqSearch, setFaqSearch] = useState("");
@@ -179,6 +189,54 @@ export default function RetroComputerHero({ fullscreen = false }: RetroComputerH
     setOsState("off");
     setActiveWindow(null);
     setStartMenuOpen(false);
+    setWindowMinimized(false);
+    setWindowMaximized(false);
+    setWindowPosition({ x: 0, y: 0 });
+  };
+
+  const handleWindowPointerDown = (event: React.PointerEvent<HTMLDivElement>) => {
+    if (windowMaximized) return;
+    event.currentTarget.setPointerCapture(event.pointerId);
+    dragState.current = {
+      active: true,
+      startX: event.clientX,
+      startY: event.clientY,
+      originX: windowPosition.x,
+      originY: windowPosition.y,
+    };
+  };
+
+  const handleWindowPointerMove = (event: React.PointerEvent<HTMLDivElement>) => {
+    if (!dragState.current.active) return;
+    setWindowPosition({
+      x: dragState.current.originX + event.clientX - dragState.current.startX,
+      y: dragState.current.originY + event.clientY - dragState.current.startY,
+    });
+  };
+
+  const handleWindowPointerUp = (event: React.PointerEvent<HTMLDivElement>) => {
+    dragState.current.active = false;
+    event.currentTarget.releasePointerCapture?.(event.pointerId);
+  };
+
+  const openWindow = (windowName: "ship" | "shop" | "chat" | "faq" | "roadmap") => {
+    setActiveWindow(windowName);
+    setWindowMinimized(false);
+  };
+
+  const toggleWindow = (windowName: "ship" | "shop" | "chat" | "faq" | "roadmap") => {
+    if (activeWindow === windowName && !windowMinimized) {
+      setWindowMinimized(true);
+      return;
+    }
+    openWindow(windowName);
+  };
+
+  const closeWindow = () => {
+    setActiveWindow(null);
+    setWindowMinimized(false);
+    setWindowMaximized(false);
+    setWindowPosition({ x: 0, y: 0 });
   };
 
   const filteredFaqs = FORTUNE_FAQS.filter((f) => {
@@ -866,13 +924,48 @@ export default function RetroComputerHero({ fullscreen = false }: RetroComputerH
                 </div>
 
                 {/* POPUP RETRO WINDOW WHEN AN ICON IS OPENED */}
-                {activeWindow && (
-                  <div className="fortune-mac-window absolute inset-2 sm:inset-3 bottom-12 bg-white rounded-lg border-3 border-[#181926] shadow-[8px_8px_0px_#181926] z-30 flex flex-col overflow-hidden animate-in fade-in zoom-in-95 duration-200">
+                {activeWindow && !windowMinimized && (
+                  <div
+                    className={`fortune-mac-window absolute ${
+                      windowMaximized ? "inset-0" : "inset-2 sm:inset-3 bottom-12"
+                    } bg-white rounded-lg border-3 border-[#181926] shadow-[8px_8px_0px_#181926] z-30 flex flex-col overflow-hidden animate-in fade-in zoom-in-95 duration-200`}
+                    style={windowMaximized ? undefined : { transform: `translate(${windowPosition.x}px, ${windowPosition.y}px)` }}
+                  >
                     
                     {/* Window Titlebar */}
-                    <div className="bg-[#181926] text-white px-3 py-2 flex items-center justify-between font-pixel text-xs shrink-0 select-none">
+                    <div
+                      className="fortune-window-titlebar bg-[#181926] text-white px-3 py-2 flex items-center justify-between font-pixel text-xs shrink-0 select-none cursor-grab active:cursor-grabbing"
+                      onPointerDown={handleWindowPointerDown}
+                      onPointerMove={handleWindowPointerMove}
+                      onPointerUp={handleWindowPointerUp}
+                    >
                       <div className="flex items-center gap-2">
-                        <span className="w-3 h-3 rounded-full bg-[#ec3750] inline-block"></span>
+                        <div className="flex items-center gap-1.5">
+                          <button
+                            type="button"
+                            aria-label="Close window"
+                            onPointerDown={(event) => event.stopPropagation()}
+                            onClick={closeWindow}
+                            className="fortune-window-control fortune-window-close"
+                          />
+                          <button
+                            type="button"
+                            aria-label="Minimize window"
+                            onPointerDown={(event) => event.stopPropagation()}
+                            onClick={() => setWindowMinimized(true)}
+                            className="fortune-window-control fortune-window-minimize"
+                          />
+                          <button
+                            type="button"
+                            aria-label="Maximize window"
+                            onPointerDown={(event) => event.stopPropagation()}
+                            onClick={() => {
+                              setWindowMaximized(!windowMaximized);
+                              setWindowPosition({ x: 0, y: 0 });
+                            }}
+                            className="fortune-window-control fortune-window-maximize"
+                          />
+                        </div>
                         <span className="font-bold uppercase tracking-wide flex items-center gap-1.5">
                           {activeWindow === "ship" && <><Package className="w-3.5 h-3.5 text-[#ffe066]" /> SHIP_SUBMISSION_APP.EXE</>}
                           {activeWindow === "shop" && <><ShoppingBag className="w-3.5 h-3.5 text-[#ffe066]" /> FORTUNE_REWARDS_SHOP.EXE</>}
@@ -881,12 +974,6 @@ export default function RetroComputerHero({ fullscreen = false }: RetroComputerH
                           {activeWindow === "faq" && <><HelpCircle className="w-3.5 h-3.5 text-[#ffe066]" /> FREQUENTLY_ASKED_QUESTIONS.TXT</>}
                         </span>
                       </div>
-                      <button
-                        onClick={() => setActiveWindow(null)}
-                        className="bg-[#ec3750] hover:bg-[#d6253e] text-white px-2.5 py-0.5 rounded font-bold transition-colors"
-                      >
-                        CLOSE [X]
-                      </button>
                     </div>
 
                     {/* Window Scrollable Body */}
@@ -1412,7 +1499,7 @@ export default function RetroComputerHero({ fullscreen = false }: RetroComputerH
                     {/* Taskbar Window Tabs */}
                     <div className="fortune-dock-apps hidden sm:flex items-center gap-1.5 pl-2 border-l border-gray-700">
                       <button
-                        onClick={() => setActiveWindow(activeWindow === "ship" ? null : "ship")}
+                        onClick={() => toggleWindow("ship")}
                         className={`px-2 py-0.5 rounded text-[11px] transition-colors flex items-center gap-1 ${
                           activeWindow === "ship" ? "bg-[#ffe066] text-[#181926] font-bold" : "hover:bg-gray-800 text-gray-300"
                         }`}
@@ -1421,7 +1508,7 @@ export default function RetroComputerHero({ fullscreen = false }: RetroComputerH
                         <span>Ship</span>
                       </button>
                       <button
-                        onClick={() => setActiveWindow(activeWindow === "roadmap" ? null : "roadmap")}
+                        onClick={() => toggleWindow("roadmap")}
                         className={`px-2 py-0.5 rounded text-[11px] transition-colors flex items-center gap-1 ${
                           activeWindow === "roadmap" ? "bg-[#ffe066] text-[#181926] font-bold" : "hover:bg-gray-800 text-gray-300"
                         }`}
@@ -1430,7 +1517,7 @@ export default function RetroComputerHero({ fullscreen = false }: RetroComputerH
                         <span>Roadmap</span>
                       </button>
                       <button
-                        onClick={() => setActiveWindow(activeWindow === "shop" ? null : "shop")}
+                        onClick={() => toggleWindow("shop")}
                         className={`px-2 py-0.5 rounded text-[11px] transition-colors flex items-center gap-1 ${
                           activeWindow === "shop" ? "bg-[#ffe066] text-[#181926] font-bold" : "hover:bg-gray-800 text-gray-300"
                         }`}
@@ -1439,7 +1526,7 @@ export default function RetroComputerHero({ fullscreen = false }: RetroComputerH
                         <span>Shop</span>
                       </button>
                       <button
-                        onClick={() => setActiveWindow(activeWindow === "chat" ? null : "chat")}
+                        onClick={() => toggleWindow("chat")}
                         className={`px-2 py-0.5 rounded text-[11px] transition-colors flex items-center gap-1 ${
                           activeWindow === "chat" ? "bg-[#ffe066] text-[#181926] font-bold" : "hover:bg-gray-800 text-gray-300"
                         }`}
@@ -1448,7 +1535,7 @@ export default function RetroComputerHero({ fullscreen = false }: RetroComputerH
                         <span>Discuss</span>
                       </button>
                       <button
-                        onClick={() => setActiveWindow(activeWindow === "faq" ? null : "faq")}
+                        onClick={() => toggleWindow("faq")}
                         className={`px-2 py-0.5 rounded text-[11px] transition-colors flex items-center gap-1 ${
                           activeWindow === "faq" ? "bg-[#ffe066] text-[#181926] font-bold" : "hover:bg-gray-800 text-gray-300"
                         }`}

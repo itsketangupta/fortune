@@ -227,6 +227,38 @@ body {
   box-shadow: 0 12px 30px rgba(17, 17, 17, 0.14) !important;
 }
 
+.fortune-workstation .fortune-window-titlebar {
+  min-height: 34px;
+  background: rgba(32, 32, 36, 0.92) !important;
+  color: #ffffff !important;
+  backdrop-filter: blur(18px);
+}
+
+.fortune-workstation .fortune-window-control {
+  width: 12px;
+  height: 12px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  display: block;
+}
+
+.fortune-workstation .fortune-window-close {
+  background: #ff5f57 !important;
+}
+
+.fortune-workstation .fortune-window-minimize {
+  background: #febc2e !important;
+}
+
+.fortune-workstation .fortune-window-maximize {
+  background: #28c840 !important;
+}
+
+.fortune-workstation .fortune-window-control:hover {
+  filter: brightness(0.86);
+}
+
 .fortune-workstation .fortune-mac-dock {
   background: rgba(255, 255, 255, 0.48) !important;
   color: #111111 !important;
