@@ -6,8 +6,57 @@ import HackClubFlag from "@/components/HackClubFlag";
 import RetroSoundProvider from "@/components/RetroSoundProvider";
 
 export const metadata: Metadata = {
-  title: "Fortune • Hack Club YSWS",
-  description: "Code software, get seed funded, build a real business. A Hack Club You Ship, We Ship for teen founders.",
+  metadataBase: new URL(
+    process.env.NEXTAUTH_URL ||
+      (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : "https://fortune-ysws.vercel.app"),
+  ),
+  title: {
+    default: "Fortune | Build a Real Business with Hack Club",
+    template: "%s | Fortune YSWS",
+  },
+  description:
+    "Fortune is a Hack Club YSWS for teen founders. Learn business, build a useful product, and ship a website for your idea.",
+  keywords: [
+    "Fortune YSWS",
+    "Hack Club",
+    "teen founders",
+    "build a business",
+    "student startup",
+    "business learning",
+    "ship a website",
+  ],
+  authors: [{ name: "Fortune YSWS" }],
+  creator: "Fortune YSWS",
+  publisher: "Hack Club",
+  alternates: {
+    canonical: "/",
+  },
+  openGraph: {
+    type: "website",
+    url: "/",
+    title: "Fortune | Build a Real Business with Hack Club",
+    description:
+      "Learn the business, build the product, and ship something people want with Fortune YSWS.",
+    siteName: "Fortune YSWS",
+    locale: "en_US",
+  },
+  twitter: {
+    card: "summary",
+    title: "Fortune | Build a Real Business with Hack Club",
+    description:
+      "A Hack Club YSWS for teen founders who want to turn ideas into real products.",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+      "max-video-preview": -1,
+    },
+  },
 };
 
 export default function RootLayout({
