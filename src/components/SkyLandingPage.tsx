@@ -91,7 +91,7 @@ export default function SkyLandingPage() {
             </span>
           </a>
 
-          <nav className="hidden items-center gap-8 text-sm font-medium text-[#111111]/60 md:flex">
+          <nav className="hidden items-center gap-8 text-base font-medium text-[#111111]/60 md:flex">
             <a href="#why-fortune" className="transition hover:text-[#ef3340]">
               Why Fortune
             </a>
