@@ -640,7 +640,7 @@ export default function RetroComputerHero({ fullscreen = false }: RetroComputerH
               <div className="fortune-desktop-surface flex-1 min-h-0 bg-[#1a2e44] flex flex-col justify-between relative overflow-hidden select-none">
                 
                 {/* Desktop Wallpaper Texture */}
-                <div className="absolute inset-0 bg-[radial-gradient(#38a3a5_1px,transparent_1px)] [background-size:24px_24px] opacity-25 pointer-events-none"></div>
+                <div className="fortune-wallpaper-texture absolute inset-0 bg-[radial-gradient(#38a3a5_1px,transparent_1px)] [background-size:24px_24px] opacity-25 pointer-events-none"></div>
 
                 {/* Tahoe-style desktop menu bar */}
                 <div className="fortune-tahoe-menubar relative z-30 flex items-center justify-between px-3 sm:px-5 py-1.5 text-xs">
