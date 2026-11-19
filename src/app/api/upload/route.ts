@@ -1,10 +1,17 @@
 import { NextResponse } from "next/server";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/lib/auth";
 import { supabase } from "@/lib/supabase";
 import fs from "fs";
 import path from "path";
 
 export async function POST(request: Request) {
   try {
+    const session = await getServerSession(authOptions);
+    if (!session?.user) {
+      return NextResponse.json({ error: "Authentication required." }, { status: 401 });
+    }
+
     const formData = await request.formData();
     const file = formData.get("file") as File | null;
 
@@ -43,14 +50,14 @@ export async function POST(request: Request) {
         });
 
       if (!error && data?.path) {
-        const { data: urlData } = supabase.storage
+        const { data: urlData, error: signedUrlError } = await supabase.storage
           .from("fortune-screenshots")
-          .getPublicUrl(data.path);
+          .createSignedUrl(data.path, 60 * 60 * 24 * 30);
 
-        if (urlData?.publicUrl) {
+        if (!signedUrlError && urlData?.signedUrl) {
           return NextResponse.json({
             success: true,
-            url: urlData.publicUrl,
+            url: urlData.signedUrl,
             storage: "supabase",
             fileName: cleanFileName,
           });

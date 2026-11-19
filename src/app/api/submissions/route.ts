@@ -1,4 +1,7 @@
 import { NextResponse } from "next/server";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/lib/auth";
+import { isUserAdmin } from "@/lib/admin";
 import { supabase } from "@/lib/supabase";
 import fs from "fs";
 import path from "path";
@@ -6,6 +9,12 @@ import crypto from "crypto";
 
 export async function GET(request: Request) {
   try {
+    const session = await getServerSession(authOptions);
+    if (!session?.user) {
+      return NextResponse.json({ error: "Authentication required." }, { status: 401 });
+    }
+
+    const admin = isUserAdmin(session.user);
     const { searchParams } = new URL(request.url);
     const userQuery = searchParams.get("user")?.toLowerCase().trim();
     const slackIdQuery = searchParams.get("slackId")?.toLowerCase().trim();
@@ -69,15 +78,30 @@ export async function GET(request: Request) {
       }
     }
 
-    // Strict user isolation: if any user filter is requested, match ONLY that exact user
+    const sessionUser = session.user as typeof session.user & {
+      slack_id?: string;
+      id?: string;
+    };
+    const sessionName = (sessionUser.name || "").toLowerCase().trim();
+    const sessionEmail = (sessionUser.email || "").toLowerCase().trim();
+    const sessionSlackId = (sessionUser.slack_id || "").toLowerCase().trim();
+
+    // Organizers can review all records; founders can only see their own records.
     const hasFilter = Boolean(userQuery || slackIdQuery || emailQuery);
     const filtered = allReal.filter((s) => {
-      if (!hasFilter) return true;
-
       const sName = (s.user_name || "").toLowerCase().trim();
       const sSlackId = (s.user_slack_id || "").toLowerCase().trim();
       const sEmail = (s.user_email || "").toLowerCase().trim();
 
+      if (!admin) {
+        return (
+          (sessionSlackId && sSlackId === sessionSlackId) ||
+          (sessionEmail && sEmail === sessionEmail) ||
+          (sessionName && sName === sessionName)
+        );
+      }
+
+      if (!hasFilter) return true;
       if (slackIdQuery && sSlackId && sSlackId === slackIdQuery) return true;
       if (emailQuery && sEmail && sEmail === emailQuery) return true;
       if (userQuery && sName && (sName === userQuery || sName === userQuery.replace(/_/g, " "))) return true;
@@ -94,6 +118,11 @@ export async function GET(request: Request) {
 
 export async function POST(request: Request) {
   try {
+    const session = await getServerSession(authOptions);
+    if (!session?.user) {
+      return NextResponse.json({ error: "Authentication required." }, { status: 401 });
+    }
+
     const body = await request.json();
     const {
       title,
@@ -105,7 +134,6 @@ export async function POST(request: Request) {
       repoUrl,
       demoUrl,
       screenshots,
-      user,
     } = body;
 
     // Validation
@@ -131,6 +159,11 @@ export async function POST(request: Request) {
     // Generate valid UUID for fallback
     const fallbackUuid = crypto.randomUUID();
 
+    const sessionUser = session.user as typeof session.user & {
+      slack_id?: string;
+      id?: string;
+    };
+
     const insertPayload = {
       title: title.trim(),
       description: description?.trim() || "",
@@ -141,9 +174,9 @@ export async function POST(request: Request) {
       repo_url: repoUrl.trim(),
       demo_url: demoUrl.trim(),
       screenshots: screenshotList,
-      user_name: user?.name || "Anonymous Founder",
-      user_email: user?.email || "",
-      user_slack_id: user?.slack_id || "",
+      user_name: sessionUser.name || "Hack Clubber",
+      user_email: sessionUser.email || "",
+      user_slack_id: sessionUser.slack_id || sessionUser.id || "",
       status: "pending_review",
       admin_notes: "",
       reviewed_by: "",
