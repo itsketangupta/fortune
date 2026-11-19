@@ -104,7 +104,10 @@ export default function SkyLandingPage() {
           </nav>
 
           <button
-            onClick={() => signIn("hackclub")}
+            type="button"
+            onClick={() => {
+              void signIn("hackclub", { callbackUrl: "/" });
+            }}
             className="hidden items-center gap-2 border border-[#111111]/30 px-4 py-2 text-sm font-semibold transition hover:border-[#ef3340] hover:bg-[#ef3340]/10 sm:flex"
           >
             <LogIn className="h-4 w-4" />
