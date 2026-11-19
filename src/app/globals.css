@@ -248,7 +248,7 @@ body {
 }
 
 .fortune-workstation .fortune-desktop-surface {
-  background: #ffffff !important;
+  background: #ffffff url('/tahoe-wallpaper.png') center / cover no-repeat !important;
 }
 
 .fortune-workstation .fortune-wallpaper-texture {
