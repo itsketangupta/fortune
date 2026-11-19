@@ -1331,7 +1331,7 @@ export default function RetroComputerHero({ fullscreen = false }: RetroComputerH
 
                       {/* Retro Start Menu */}
                       {startMenuOpen && (
-                        <div className="absolute left-0 bottom-full mb-1 w-56 bg-[#e8dec0] border-3 border-[#181926] rounded-lg shadow-[6px_6px_0px_#181926] p-2 text-[#181926] z-50 animate-in fade-in zoom-in-95 font-pixel text-xs">
+                        <div className="fortune-start-menu absolute left-0 bottom-full mb-1 w-56 bg-[#e8dec0] border-3 border-[#181926] rounded-lg shadow-[6px_6px_0px_#181926] p-2 text-[#181926] z-50 animate-in fade-in zoom-in-95 font-pixel text-xs">
                           <div className="bg-[#181926] text-white p-2 rounded mb-2 text-center">
                             <div className="text-sm font-bold">Fortune OS 1.0</div>
                             <div className="text-[10px] text-[#ffe066] truncate">@{session?.user?.name || "clubber"}</div>
@@ -1470,15 +1470,13 @@ export default function RetroComputerHero({ fullscreen = false }: RetroComputerH
                   {/* Right side: Shut down & Clock */}
                   <div className="fortune-dock-status flex items-center gap-2 text-[11px] text-gray-300">
                     <button
-                      onClick={() => signOut()}
-                      className="text-[#ec3750] hover:text-white hover:underline font-bold"
-                      title="Shut down & Sign out"
+                      onClick={() => setStartMenuOpen(!startMenuOpen)}
+                      className="fortune-dock-start flex items-center justify-center gap-1.5"
+                      title="Open Start menu"
                     >
-                      [Shut Down]
+                      <Terminal className="w-4 h-4" />
+                      <span>Start</span>
                     </button>
-                    <span className="bg-black/60 px-2 py-0.5 rounded border border-gray-700 text-[#10b981] font-mono">
-                      1994 OS
-                    </span>
                   </div>
 
                 </div>

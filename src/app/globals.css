@@ -228,7 +228,7 @@ body {
 }
 
 .fortune-workstation .fortune-mac-dock {
-  background: rgba(255, 255, 255, 0.92) !important;
+  background: rgba(255, 255, 255, 0.48) !important;
   color: #111111 !important;
   border: 1px solid rgba(17, 17, 17, 0.22) !important;
   border-radius: 14px !important;
@@ -303,6 +303,41 @@ body {
 
 .fortune-workstation .fortune-launcher,
 .fortune-workstation .fortune-dock-status {
+  display: flex !important;
+}
+
+.fortune-workstation .fortune-launcher > button {
+  display: none !important;
+}
+
+.fortune-workstation .fortune-start-menu {
+  position: fixed !important;
+  left: auto !important;
+  right: 1.25rem !important;
+  bottom: 4.75rem !important;
+}
+
+.fortune-workstation .fortune-dock-status {
+  margin-left: 0.35rem;
+  padding-left: 0.45rem;
+  border-left: 1px solid rgba(17, 17, 17, 0.2);
+}
+
+.fortune-workstation .fortune-dock-start {
+  width: 58px !important;
+  min-height: 58px !important;
+  padding: 0.35rem 0.25rem !important;
+  flex-direction: column;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.42) !important;
+}
+
+.fortune-workstation .fortune-dock-start:hover {
+  background: #ef3340 !important;
+  color: #ffffff !important;
+}
+
+.fortune-workstation .fortune-dock-status > button:not(.fortune-dock-start) {
   display: none !important;
 }
 
