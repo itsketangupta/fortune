@@ -255,6 +255,10 @@ body {
   display: none !important;
 }
 
+.fortune-workstation .fortune-desktop-apps {
+  display: none !important;
+}
+
 .fortune-workstation .crt-3d-glass::before {
   display: none !important;
 }

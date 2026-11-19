@@ -780,7 +780,7 @@ export default function RetroComputerHero({ fullscreen = false }: RetroComputerH
                   </div>
 
                   {/* TOP-RIGHT: DESKTOP APPS & FOLDER ICONS */}
-                  <div className="md:col-span-7 flex flex-wrap gap-3 sm:gap-4 items-start justify-start sm:justify-end">
+                  <div className="fortune-desktop-apps md:col-span-7 flex flex-wrap gap-3 sm:gap-4 items-start justify-start sm:justify-end">
                     
                     {/* Folder 1: Ship App */}
                     <div
