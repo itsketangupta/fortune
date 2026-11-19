@@ -642,12 +642,31 @@ export default function RetroComputerHero({ fullscreen = false }: RetroComputerH
                 {/* Desktop Wallpaper Texture */}
                 <div className="absolute inset-0 bg-[radial-gradient(#38a3a5_1px,transparent_1px)] [background-size:24px_24px] opacity-25 pointer-events-none"></div>
 
+                {/* Tahoe-style desktop menu bar */}
+                <div className="fortune-tahoe-menubar relative z-30 flex items-center justify-between px-3 sm:px-5 py-1.5 text-xs">
+                  <div className="flex items-center gap-4">
+                    <span className="fortune-apple-mark" aria-label="Fortune desktop">●</span>
+                    <span className="font-bold">Fortune</span>
+                    <span className="hidden sm:inline">File</span>
+                    <span className="hidden sm:inline">Edit</span>
+                    <span className="hidden sm:inline">View</span>
+                    <span className="hidden sm:inline">Window</span>
+                    <span className="hidden sm:inline">Help</span>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <span className="hidden sm:inline">Founder Mode</span>
+                    <span>●</span>
+                    <span>Wi-Fi</span>
+                    <span>Now</span>
+                  </div>
+                </div>
+
                 {/* DESKTOP WORKSPACE GRID */}
                 <div className="p-4 sm:p-6 grid grid-cols-1 md:grid-cols-12 gap-4 relative z-20">
                   
                   {/* TOP-LEFT: CRT FOUNDER CASH VOUCHER (REAL USER DATA) */}
                   <div className="md:col-span-5">
-                    <div className="bg-[#f0fdf4] border-2 border-[#181926] rounded-xl p-3 sm:p-4 shadow-[4px_4px_0px_#181926] text-[#181926] font-pixel text-xs space-y-3">
+                    <div className="fortune-founder-widget bg-[#f0fdf4] border-2 border-[#181926] rounded-xl p-3 sm:p-4 shadow-[4px_4px_0px_#181926] text-[#181926] font-pixel text-xs space-y-3">
                       
                       {/* Header */}
                       <div className="flex items-center justify-between border-b-2 border-dashed border-[#181926]/30 pb-2">
