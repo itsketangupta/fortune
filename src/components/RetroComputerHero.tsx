@@ -1320,6 +1320,14 @@ export default function RetroComputerHero({ fullscreen = false }: RetroComputerH
                   
                   {/* Start Button & Active Window Tabs */}
                   <div className="fortune-dock-items flex items-center gap-2">
+                    <button
+                      onClick={() => setStartMenuOpen(!startMenuOpen)}
+                      className="fortune-dock-start flex items-center justify-center gap-1.5"
+                      title="Open Start menu"
+                    >
+                      <Terminal className="w-4 h-4" />
+                      <span>Start</span>
+                    </button>
                     <div className="fortune-launcher relative">
                       <button
                         onClick={() => setStartMenuOpen(!startMenuOpen)}
@@ -1468,17 +1476,6 @@ export default function RetroComputerHero({ fullscreen = false }: RetroComputerH
                   </div>
 
                   {/* Right side: Shut down & Clock */}
-                  <div className="fortune-dock-status flex items-center gap-2 text-[11px] text-gray-300">
-                    <button
-                      onClick={() => setStartMenuOpen(!startMenuOpen)}
-                      className="fortune-dock-start flex items-center justify-center gap-1.5"
-                      title="Open Start menu"
-                    >
-                      <Terminal className="w-4 h-4" />
-                      <span>Start</span>
-                    </button>
-                  </div>
-
                 </div>
 
               </div>
