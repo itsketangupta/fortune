@@ -6,7 +6,7 @@ import { supabase } from "@/lib/supabase";
 import fs from "fs";
 import path from "path";
 
-const ADMIN_PASSKEY = process.env.ADMIN_PASSKEY || "fortune_admin_2026";
+const ADMIN_PASSKEY = process.env.ADMIN_PASSKEY || "";
 
 async function verifyAdminAuth(request: Request) {
   // 1. Session Auth (Tracked by Auth)
