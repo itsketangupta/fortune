@@ -62,6 +62,17 @@ const submissionItems = [
 export default function SkyLandingPage() {
   const [isJoining, setIsJoining] = useState(false);
 
+  const handleSignIn = async () => {
+    const result = await signIn("hackclub", {
+      callbackUrl: "/",
+      redirect: false,
+    });
+
+    if (result?.url) {
+      window.location.assign(result.url);
+    }
+  };
+
   const handleRsvp = () => {
     setIsJoining(true);
     confetti({
@@ -106,7 +117,7 @@ export default function SkyLandingPage() {
           <button
             type="button"
             onClick={() => {
-              void signIn("hackclub", { callbackUrl: "/" });
+              void handleSignIn();
             }}
             className="hidden items-center gap-2 border border-[#111111]/30 px-4 py-2 text-sm font-semibold transition hover:border-[#ef3340] hover:bg-[#ef3340]/10 sm:flex"
           >
