@@ -1319,8 +1319,8 @@ export default function RetroComputerHero({ fullscreen = false }: RetroComputerH
                 <div className="fortune-mac-dock bg-[#181926] text-white px-3 py-1.5 border-t-2 border-[#181926] flex items-center justify-between font-pixel text-xs relative z-40 shrink-0 select-none">
                   
                   {/* Start Button & Active Window Tabs */}
-                  <div className="flex items-center gap-2">
-                    <div className="relative">
+                  <div className="fortune-dock-items flex items-center gap-2">
+                    <div className="fortune-launcher relative">
                       <button
                         onClick={() => setStartMenuOpen(!startMenuOpen)}
                         className="bg-[#ffe066] hover:bg-[#ffd533] text-[#181926] px-3 py-1 rounded font-bold flex items-center gap-1.5 shadow-[1px_1px_0px_#000] active:scale-95 transition-transform"
@@ -1402,7 +1402,7 @@ export default function RetroComputerHero({ fullscreen = false }: RetroComputerH
                     </div>
 
                     {/* Taskbar Window Tabs */}
-                    <div className="hidden sm:flex items-center gap-1.5 pl-2 border-l border-gray-700">
+                    <div className="fortune-dock-apps hidden sm:flex items-center gap-1.5 pl-2 border-l border-gray-700">
                       <button
                         onClick={() => setActiveWindow(activeWindow === "ship" ? null : "ship")}
                         className={`px-2 py-0.5 rounded text-[11px] transition-colors flex items-center gap-1 ${
@@ -1448,11 +1448,27 @@ export default function RetroComputerHero({ fullscreen = false }: RetroComputerH
                         <HelpCircle className="w-3 h-3" />
                         <span>FAQ</span>
                       </button>
+                      <Link
+                        href="/dashboard"
+                        className="fortune-dock-link px-2 py-0.5 rounded text-[11px] transition-colors flex items-center gap-1 text-gray-300 hover:bg-gray-800"
+                      >
+                        <LayoutDashboard className="w-3 h-3" />
+                        <span>Dashboard</span>
+                      </Link>
+                      {isAdmin && (
+                        <Link
+                          href="/admin"
+                          className="fortune-dock-link px-2 py-0.5 rounded text-[11px] transition-colors flex items-center gap-1 text-gray-300 hover:bg-gray-800"
+                        >
+                          <Shield className="w-3 h-3" />
+                          <span>Admin</span>
+                        </Link>
+                      )}
                     </div>
                   </div>
 
                   {/* Right side: Shut down & Clock */}
-                  <div className="flex items-center gap-2 text-[11px] text-gray-300">
+                  <div className="fortune-dock-status flex items-center gap-2 text-[11px] text-gray-300">
                     <button
                       onClick={() => signOut()}
                       className="text-[#ec3750] hover:text-white hover:underline font-bold"

@@ -301,14 +301,51 @@ body {
   gap: 0.35rem;
 }
 
+.fortune-workstation .fortune-launcher,
+.fortune-workstation .fortune-dock-status {
+  display: none !important;
+}
+
+.fortune-workstation .fortune-dock-items {
+  width: 100%;
+  justify-content: center;
+}
+
+.fortune-workstation .fortune-dock-apps {
+  display: flex !important;
+  align-items: flex-end;
+  gap: 0.35rem !important;
+  padding-left: 0 !important;
+  border-left: 0 !important;
+}
+
 .fortune-workstation .fortune-mac-dock button {
-  min-height: 34px;
-  padding: 0.35rem 0.55rem;
+  width: 58px;
+  min-height: 58px;
+  padding: 0.35rem 0.25rem;
+  flex-direction: column;
+  justify-content: center;
   transition: transform 160ms ease, background 160ms ease;
+}
+
+.fortune-workstation .fortune-mac-dock .fortune-dock-link {
+  width: 58px;
+  min-height: 58px;
+  padding: 0.35rem 0.25rem;
+  flex-direction: column;
+  justify-content: center;
+  color: #111111 !important;
+  text-align: center;
 }
 
 .fortune-workstation .fortune-mac-dock button:hover {
   transform: translateY(-2px);
+}
+
+.fortune-workstation .fortune-mac-dock .fortune-dock-link:hover {
+  transform: translateY(-2px);
+  background: #ef3340 !important;
+  color: #ffffff !important;
 }
 
 /* remove ugly default browser triangle arrow from summary */
