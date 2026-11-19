@@ -22,8 +22,8 @@ export const authOptions: NextAuthOptions = {
       },
       token: "https://auth.hackclub.com/oauth/token",
       userinfo: "https://auth.hackclub.com/api/v1/user",
-      clientId: process.env.HACKCLUB_CLIENT_ID || "6eaf67a0ebf1921c10b685be094873c8",
-      clientSecret: process.env.HACKCLUB_CLIENT_SECRET || "e73c506700cc1d7a88d69997cc8cdfabcf81991747c282513567d65c307b314a",
+      clientId: process.env.HACKCLUB_CLIENT_ID || "",
+      clientSecret: process.env.HACKCLUB_CLIENT_SECRET || "",
       profile(profile) {
         const slackId = profile.slack_id || profile.sub || profile.id || "";
         return {
@@ -72,6 +72,6 @@ export const authOptions: NextAuthOptions = {
       return session;
     },
   },
-  secret: process.env.NEXTAUTH_SECRET || "fortune_ysws_super_secret_hackclub_key_2026_priyanshu",
+  secret: process.env.NEXTAUTH_SECRET || "",
   useSecureCookies: process.env.NODE_ENV === "production",
 };

@@ -46,6 +46,9 @@
    ```
    Open [http://localhost:3000](http://localhost:3000) in your browser.
 
+Never commit `.env.local` or share OAuth secrets. If a client secret is exposed,
+rotate it in Hack Club Auth and update your local environment file.
+
 ---
 
 ## 📜 Links & Community
