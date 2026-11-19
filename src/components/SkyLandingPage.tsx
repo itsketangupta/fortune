@@ -79,7 +79,7 @@ export default function SkyLandingPage() {
   };
 
   return (
-    <div className="fortune-site min-h-screen overflow-hidden bg-white text-[#111111]">
+    <div className="fortune-site font-zeyada min-h-screen overflow-hidden bg-white text-[#111111]">
       <header className="relative z-20 border-b border-[#111111]/15">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-5 py-5 sm:px-8">
           <a href="#" className="flex items-center gap-3">

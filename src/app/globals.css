@@ -101,6 +101,12 @@ body {
   font-family: 'Zeyada', cursive;
 }
 
+.font-zeyada {
+  font-family: 'Zeyada', cursive;
+  font-weight: 400;
+  font-style: normal;
+}
+
 /* remove ugly default browser triangle arrow from summary */
 summary::-webkit-details-marker {
   display: none;
