@@ -446,7 +446,7 @@ export default function RetroComputerHero({ fullscreen = false }: RetroComputerH
 
   // Fullscreen Workstation Mode (For Logged-In Authenticated Founders)
   return (
-    <section className="w-full h-full flex flex-col p-1 sm:p-2 bg-transparent overflow-hidden crt-3d-stage">
+    <section className="fortune-workstation w-full h-full flex flex-col p-1 sm:p-2 bg-transparent overflow-hidden crt-3d-stage">
       
       {/* 3D Monitor Chassis */}
       <div className="crt-3d-monitor-chassis p-2.5 sm:p-3 relative flex-1 min-h-0 flex flex-col overflow-hidden">
@@ -637,7 +637,7 @@ export default function RetroComputerHero({ fullscreen = false }: RetroComputerH
 
             {/* 3. STATE: THE RETRO COMPUTER DESKTOP WORKSPACE */}
             {osState === "desktop" && (
-              <div className="flex-1 min-h-0 bg-[#1a2e44] flex flex-col justify-between relative overflow-hidden select-none">
+              <div className="fortune-desktop-surface flex-1 min-h-0 bg-[#1a2e44] flex flex-col justify-between relative overflow-hidden select-none">
                 
                 {/* Desktop Wallpaper Texture */}
                 <div className="absolute inset-0 bg-[radial-gradient(#38a3a5_1px,transparent_1px)] [background-size:24px_24px] opacity-25 pointer-events-none"></div>
@@ -848,7 +848,7 @@ export default function RetroComputerHero({ fullscreen = false }: RetroComputerH
 
                 {/* POPUP RETRO WINDOW WHEN AN ICON IS OPENED */}
                 {activeWindow && (
-                  <div className="absolute inset-2 sm:inset-3 bottom-12 bg-white rounded-lg border-3 border-[#181926] shadow-[8px_8px_0px_#181926] z-30 flex flex-col overflow-hidden animate-in fade-in zoom-in-95 duration-200">
+                  <div className="fortune-mac-window absolute inset-2 sm:inset-3 bottom-12 bg-white rounded-lg border-3 border-[#181926] shadow-[8px_8px_0px_#181926] z-30 flex flex-col overflow-hidden animate-in fade-in zoom-in-95 duration-200">
                     
                     {/* Window Titlebar */}
                     <div className="bg-[#181926] text-white px-3 py-2 flex items-center justify-between font-pixel text-xs shrink-0 select-none">
@@ -1297,7 +1297,7 @@ export default function RetroComputerHero({ fullscreen = false }: RetroComputerH
                 )}
 
                 {/* BOTTOM TASKBAR / NAVIGATION BAR */}
-                <div className="bg-[#181926] text-white px-3 py-1.5 border-t-2 border-[#181926] flex items-center justify-between font-pixel text-xs relative z-40 shrink-0 select-none">
+                <div className="fortune-mac-dock bg-[#181926] text-white px-3 py-1.5 border-t-2 border-[#181926] flex items-center justify-between font-pixel text-xs relative z-40 shrink-0 select-none">
                   
                   {/* Start Button & Active Window Tabs */}
                   <div className="flex items-center gap-2">

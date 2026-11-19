@@ -75,7 +75,7 @@ export default function RootLayout({
         />
         <link rel="icon" href="https://assets.hackclub.com/icon-rounded.png" />
       </head>
-      <body className="min-h-screen bg-[#f7f1e1] text-[#181926] antialiased selection:bg-[#ec3750] selection:text-white">
+      <body className="min-h-screen bg-white text-[#111111] antialiased selection:bg-[#ef3340] selection:text-white">
         <AuthProvider>
           <RetroSoundProvider>
             {/* Hack Club Flag Ribbon (auto-hidden in fullscreen PC mode) */}

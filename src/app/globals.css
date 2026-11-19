@@ -107,6 +107,113 @@ body {
   font-style: normal;
 }
 
+/* Site-wide editorial theme: Zeyada typography with a white, red, black and grey palette. */
+body,
+body * {
+  font-family: 'Zeyada', cursive !important;
+}
+
+body {
+  background: #ffffff !important;
+  color: #111111 !important;
+}
+
+[class*="bg-[#f7f1e1]"],
+[class*="bg-[#fffdf5]"],
+[class*="bg-[#faf9f5]"],
+[class*="bg-[#fffbeb]"],
+[class*="bg-[#f0fdf4]"],
+[class*="bg-[#e6f4ea]"],
+[class*="bg-[#e8dec0]"],
+[class*="bg-[#ffe066]"] {
+  background-color: #f3f3f3 !important;
+}
+
+[class*="bg-[#181926]"],
+[class*="bg-[#0c0d14]"],
+[class*="bg-[#12131c]"],
+[class*="bg-[#14151f]"],
+[class*="bg-[#11121a]"] {
+  background-color: #111111 !important;
+}
+
+[class*="bg-[#ec3750]"],
+[class*="bg-[#ef3340]"],
+[class*="bg-[#10b981]"],
+[class*="bg-[#f59e0b]"] {
+  background-color: #ef3340 !important;
+}
+
+[class*="text-[#181926]"],
+[class*="text-[#242636]"],
+[class*="text-[#5c503b]"],
+[class*="text-[#786b51]"],
+[class*="text-[#4a4a4a]"] {
+  color: #111111 !important;
+}
+
+[class*="text-[#10b981]"],
+[class*="text-[#15803d]"],
+[class*="text-[#b45309]"],
+[class*="text-[#f59e0b]"] {
+  color: #ef3340 !important;
+}
+
+[class*="border-[#ffe066]"],
+[class*="border-[#10b981]"],
+[class*="border-[#15803d]"] {
+  border-color: #ef3340 !important;
+}
+
+/* Logged-in workstation: a clean Mac-like desktop instead of the old CRT palette. */
+.fortune-workstation .crt-3d-monitor-chassis {
+  background: #f3f3f3 !important;
+  border: 2px solid #111111 !important;
+  border-radius: 18px !important;
+  box-shadow: 0 18px 40px rgba(17, 17, 17, 0.18) !important;
+  transform: none !important;
+}
+
+.fortune-workstation .crt-3d-bezel,
+.fortune-workstation .crt-3d-glass {
+  background: #ffffff !important;
+  border: 1px solid rgba(17, 17, 17, 0.18) !important;
+  border-radius: 12px !important;
+  box-shadow: none !important;
+}
+
+.fortune-workstation .fortune-desktop-surface {
+  background: #eeeeee !important;
+  color: #111111 !important;
+}
+
+.fortune-workstation .fortune-mac-window {
+  background: #ffffff !important;
+  border: 1px solid rgba(17, 17, 17, 0.2) !important;
+  border-radius: 10px !important;
+  box-shadow: 0 12px 30px rgba(17, 17, 17, 0.14) !important;
+}
+
+.fortune-workstation .fortune-mac-dock {
+  background: rgba(255, 255, 255, 0.92) !important;
+  color: #111111 !important;
+  border: 1px solid rgba(17, 17, 17, 0.22) !important;
+  border-radius: 14px !important;
+  box-shadow: 0 8px 24px rgba(17, 17, 17, 0.16) !important;
+  margin: 0.5rem !important;
+}
+
+.fortune-workstation .fortune-mac-dock button {
+  color: #111111 !important;
+  border-radius: 10px !important;
+}
+
+.fortune-workstation .fortune-mac-dock button:hover,
+.fortune-workstation .fortune-mac-dock button[class*="bg-[#ffe066]"] {
+  background: #ef3340 !important;
+  color: #ffffff !important;
+}
+
 /* remove ugly default browser triangle arrow from summary */
 summary::-webkit-details-marker {
   display: none;
