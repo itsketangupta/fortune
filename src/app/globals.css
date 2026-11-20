@@ -110,7 +110,7 @@ body {
 /* Site-wide editorial theme: Zeyada typography with a white, red, black and grey palette. */
 body,
 body * {
-  font-family: 'Zeyada', cursive !important;
+  font-family: 'Tiny5 Duo', monospace !important;
 }
 
 body {
