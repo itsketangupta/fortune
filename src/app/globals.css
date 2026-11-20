@@ -446,11 +446,11 @@ summary {
   padding: 0;
 }
 
-/* Thick Yellow Retro Hand Cursor */
+/* Custom Fortune cursor */
 html,
 body,
 body * {
-  cursor: url('/cursor-hand.svg') 11 2, auto;
+  cursor: url('/fortune-cursor.png') 4 4, auto;
 }
 
 button,
@@ -464,7 +464,7 @@ summary,
 input[type="range"],
 input[type="checkbox"],
 input[type="radio"] {
-  cursor: url('/cursor-hand.svg') 11 2, pointer !important;
+  cursor: url('/fortune-cursor.png') 4 4, pointer !important;
 }
 
 /* 3D Retro CRT Monitor Chassis Styles (Noben_Nobi 3D Spec) */
