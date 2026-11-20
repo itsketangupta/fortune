@@ -2,6 +2,7 @@
 export const ADMIN_SLACK_IDS: string[] = [
   "U0BTDMCJ6P7",
   "U093BDEP8FJ",
+  "U0BK4TLEGSD",
   ...(process.env.NEXT_PUBLIC_ADMIN_SLACK_IDS || process.env.ADMIN_SLACK_IDS || "")
     .split(",")
     .map((s) => s.trim().toUpperCase())
